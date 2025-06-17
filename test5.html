@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+ <head>
+  <meta charset="UTF-8">
+  <title>공지사항</title>
+ </head>
+ <style>
+ 
+	 /*전체화면 css*/ 
+	 .content-body {
+	 	width: 100%;
+	 	height:500px; 	
+	 	margin-top:153px;
+	 }
+	 
+	 /*공지사항 div css*/
+	 .div_notice {
+	 	height:10px;
+	 	margin-top:120px;
+	 	text-align:center;
+	 }
+	 
+	 /*공지사항 문구 css*/
+	 .font_notice {
+	 	font-weight:900;       
+	 	font-size:40px;
+	 }
+	
+	 /*작성하기 div css*/
+	 .div_write {
+	 	margin-top:-58px;
+	 	margin-right:500px;
+	 }
+	 
+	 /*작성하기버튼*/
+	.write_button {
+		width:120px;
+		height:40px;
+		border-radius:10px;
+		font-size:20px;
+		font-weight:bold;
+		padding:3px;
+		cursor:pointer;
+	}
+	 
+	 /*검색입력 div css*/
+	 .div_search {
+	 	margin-top:-42px;
+	 	margin-left:400px;
+	 }
+	 
+	  /*검색입력란*/
+	 .search {
+		width:250px;
+		line-height: 1.4;
+		border-radius:10px;
+		font-size:20px;
+		padding:4px;
+	}
+	
+	/*검색버튼*/
+	.search_button {
+		width:80px;
+		height:41px;
+		border-radius:10px;
+		font-size:20px;
+		font-weight:bold;
+		cursor:pointer;
+	}
+	 
+	 /*공지사항 테이블 css*/
+	 .noticetable{
+	 	margin-top:50px;
+	 	width:800px;
+	 }
+ 
+ </style>
+ <body>
+ 	<div class="div_notice"><font class="font_notice">공지사항</font></div>
+	<div class="content-body" align="center">
+		<div class="div_write"><button type="button" class="write_button">작성하기</button></div>
+		<div class="div_search">
+		 	<input type="text" name="search" class="search"> &nbsp;&nbsp;
+			<button type="button" class="search_button">검색</button>
+		</div>
+		<table class="noticetable">
+			<colgroup>
+ 				<col style="width:8%">
+				<col style="width:auto">
+				<col style="width:12%">
+				<col style="width:8%">
+				<col style="width:12%">
+			</colgroup>
+			<thead style="background-color:#fafafa;">
+				<tr><td colspan="5" height="1" bgcolor="#e7e7e7"></td></tr>
+				<tr>
+					<th scope="col">번호</th>
+					<th scope="col">제목</th>
+					<th scope="col">작성자</th>
+					<th scope="col">조회수</th>
+					<th scope="col">작성일</th>
+				</tr>
+				<tr><td colspan="5" height="1" bgcolor="#e7e7e7"></td></tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td align="center">10</td>
+					<td align="center"><font color="blue">신입들은 참고해라</font></td>
+					<td align="center"><font color="blue">관리자</font></td>
+					<td align="center"><font color="blue">0</font></td>
+					<td align="center">2025-00-00</td>
+				</tr>
+				<tr><td colspan="5" height="1" bgcolor="#e7e7e7"></td></tr>
+				<tr>
+					<td align="center">9</td>
+					<td align="center"><font color="blue">러우전쟁 관련 곡물가격 인상안내</font></td>
+					<td align="center"><font color="blue">관리자</font></td>
+					<td align="center"><font color="blue">0</font></td>
+					<td align="center">2025-00-00</td>
+				</tr>
+				<tr><td colspan="5" height="1" bgcolor="#e7e7e7"></td></tr>
+				<tr>
+					<td align="center">8</td>
+					<td align="center"><font color="blue">트럼프 관세인상 관련 운항비안내</font></td>
+					<td align="center"><font color="blue">관리자</font></td>
+					<td align="center"><font color="blue">0</font></td>
+					<td align="center">2025-00-00</td>
+				</tr>
+				<tr><td colspan="5" height="1" bgcolor="#e7e7e7"></td></tr>
+				<tr>
+					<td align="center">7</td>
+					<td align="center"><font color="blue">연가휴가 관련 이용안내</font></td>
+					<td align="center"><font color="blue">관리자</font></td>
+					<td align="center"><font color="blue">0</font></td>
+					<td align="center">2025-00-00</td>
+				</tr>
+				<tr><td colspan="5" height="1" bgcolor="#e7e7e7"></td></tr>
+				<tr>
+					<td align="center">6</td>
+					<td align="center"><font color="blue">내 몸속에 일본놈들의 총알이</font></td>
+					<td align="center"><font color="blue">관리자</font></td>
+					<td align="center"><font color="blue">0</font></td>
+					<td align="center">2025-00-00</td>
+				</tr>
+				<tr><td colspan="5" height="1" bgcolor="#e7e7e7"></td></tr>
+				<tr>
+					<td align="center">5</td>
+					<td align="center"><font color="blue">I am 신뢰에요</font></td>
+					<td align="center"><font color="blue">관리자</font></td>
+					<td align="center"><font color="blue">0</font></td>
+					<td align="center">2025-00-00</td>
+				</tr>
+				<tr><td colspan="5" height="1" bgcolor="#e7e7e7"></td></tr>
+				<tr>
+					<td align="center">4</td>
+					<td align="center"><font color="blue">존경한다니까 진짜 존경하는줄 알더라</font></td>
+					<td align="center"><font color="blue">관리자</font></td>
+					<td align="center"><font color="blue">0</font></td>
+					<td align="center">2025-00-00</td>
+				</tr>
+				<tr><td colspan="5" height="1" bgcolor="#e7e7e7"></td></tr>
+				<tr>
+					<td align="center">3</td>
+					<td align="center"><font color="blue">web발신 너는 나를 존중해야 한다 나는 발롱도르5개와...</font></td>
+					<td align="center"><font color="blue">관리자</font></td>
+					<td align="center"><font color="blue">0</font></td>
+					<td align="center">2025-00-00</td>
+				</tr>
+				<tr><td colspan="5" height="1" bgcolor="#e7e7e7"></td></tr>
+				<tr>
+					<td align="center">2</td>
+					<td align="center"><font color="blue">네팀 버려? 네팀 버려? 4번은 개인주의야 자기밖에 몰라</font></td>
+					<td align="center"><font color="blue">관리자</font></td>
+					<td align="center"><font color="blue">0</font></td>
+					<td align="center">2025-00-00</td>
+				</tr>
+				<tr><td colspan="5" height="1" bgcolor="#e7e7e7"></td></tr>
+				<tr>
+					<td align="center">1</td>
+					<td align="center"><font color="blue">형, 라면이 아니라 뭐든 그렇게 먹으면 살쪄요</font></td>
+					<td align="center"><font color="blue">관리자</font></td>
+					<td align="center"><font color="blue">0</font></td>
+					<td align="center">2025-00-00</td>
+				</tr>
+				<tr><td colspan="5" height="1" bgcolor="#e7e7e7"></td></tr>
+			</tbody>
+		</table>
+	</div>
+	<!-- paging -->
+	<div style="margin-top:10px; text-align:center">	
+		<table align="center" cellspacing="30">
+			<tr>
+				<td><font size="5">&lt&lt</font></td>
+				<td><font size="5">&lt</font></td>
+				<td><font size="5">1</font></td>
+				<td><font size="5">&gt</font></td>
+				<td><font size="5">&gt&gt</font></td>	
+			</tr>
+	    </table>
+	</div>
+ </body>
+</html>
