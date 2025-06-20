@@ -24,7 +24,7 @@ public class NoticeService {
 		Pageable pageable = PageRequest.of(page,size,Sort.by("ntcno").descending()); 
 		return noticeRepository.findAll(pageable);
 	}
-		
+	
 	// 공지사항 목록화면 총데이터 개수
 	public Long count() {return noticeRepository.count();}
 	
