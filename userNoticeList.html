@@ -29,24 +29,6 @@
 			font-weight:900;       
 			font-size:40px;
 		}
-		
-		/*작성하기 div css*/
-		.div_write {
-		 	margin-top:-58px;
-			margin-right:500px;
-		}
-		 
-		/*작성하기버튼*/
-		.write_button {
-			width:120px;
-			height:40px;
-			border-radius:10px;
-			font-size:20px;
-			font-weight:bold;
-			padding:3px;
-			cursor:pointer;
-			background-color:white;
-		}
 		 
 		/*검색입력 div css*/
 		.div_search {
@@ -93,8 +75,6 @@
 	    }
     
     </style>
-    
-    <script>$(function() {$("#btn_Write").click(function() {location = "/notice/AdminWrite";});});</script>
 
     <body>
         <!-- header 시작 -->
@@ -110,8 +90,7 @@
             <section class="contents">
                 <div class="div_notice"><font class="font_notice">공지사항</font></div>
 				<div class="content-body" align="center">
-					<div class="div_write"><button type="button" class="write_button" id="btn_Write">작성하기</button></div>
-					<form method="get" action="/notice/AdminList">
+					<form method="get" action="/notice/UserList">
 						<div class="div_search">
 						 	<input type="text" class="search" name="search" th:value="${search}"> &nbsp;&nbsp;
 							<button type="submit" class="search_button">검색</button>
@@ -138,7 +117,7 @@
 							<tr  th:each="result,myState : ${plist}">
 								<td align="center" th:text="${startPageRownum - myState.index}"></td>
 								<td align="center">
-									<a th:href="@{|/notice/1/${result.ntcno}|}" th:text="${result.ntctt}" 
+									<a th:href="@{|/notice/${result.ntcno}|}" th:text="${result.ntctt}" 
 									   th:style="${'color:blue;'}">
 									</a>
 								</td>
@@ -160,31 +139,31 @@
 						<tr>
 							<!-- 맨 앞으로 (indexpage=1) -->
 							<td class="td_page">
-								<a th:href="@{|/notice/AdminList?indexpage=1&search=${search}|}">&lt;&lt;</a>
+								<a th:href="@{|/notice/UserList?indexpage=1&search=${search}|}">&lt;&lt;</a>
 							</td>
 							<!-- 이전 페이지 (indexpage=current-1, 단 1보다 작으면 1) -->
 							<td class="td_page">
 								<a th:href=
-								   "@{|/notice/AdminList?indexpage=${indexpage > 1 ? indexpage - 1 : 1}&search=${search}|}">
+								   "@{|/notice/UserList?indexpage=${indexpage > 1 ? indexpage - 1 : 1}&search=${search}|}">
 									&lt;
 								</a>
 							</td>
 							<!-- 현재 페이지 -->
 							<td class="td_page" th:each="n : ${#numbers.sequence(1, ptotalPage)}">
-  								<a th:href="@{|/notice/AdminList?indexpage=${n}&search=${search}|}">
+  								<a th:href="@{|/notice/UserList?indexpage=${n}&search=${search}|}">
     								<span th:text="${n}"></span>
   								</a>
 							</td>
 							<!-- 다음 페이지 (indexpage=current+1, 단 totalPage보다 크면 totalPage) -->
 							<td class="td_page">
 								<a th:href=
-				  "@{|/notice/AdminList?indexpage=${indexpage < ptotalPage ? indexpage + 1 : ptotalPage}&search=${search}|}">
+				  "@{|/notice/UserList?indexpage=${indexpage < ptotalPage ? indexpage + 1 : ptotalPage}&search=${search}|}">
 								   &gt;
 								</a>
 							</td>					
 							<!-- 맨 뒤로 -->
 							<td class="td_page">
-								<a th:href="@{|/notice/AdminList?indexpage=${ptotalPage}&search=${search}|}">&gt;&gt;</a>
+								<a th:href="@{|/notice/UserList?indexpage=${ptotalPage}&search=${search}|}">&gt;&gt;</a>
 							</td>
 						</tr>
 				    </table>

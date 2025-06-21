@@ -18,11 +18,14 @@ public class NoticeService {
 	public NoticeService(NoticeRepository noticeRepository) {this.noticeRepository = noticeRepository;}
 	
 	// 공지사항 목록화면 출력
-	public Page<NoticeDto> List(int page,int size) {
+	public Page<NoticeDto> list(int page,int size,String search) {
 			
 		// pageable : 페이징 처리를 위한 스프링에서 제공하는 인터페이스 = pageRequest.of(현재페이지번호,출력단위페이지번호,정렬방식)
 		Pageable pageable = PageRequest.of(page,size,Sort.by("ntcno").descending()); 
-		return noticeRepository.findAll(pageable);
+		
+		// 검색어가 있으면 검색, 없으면 전체 목록
+	    if (search != null && !search.trim().isEmpty()) return noticeRepository.findByNtcttContaining(search, pageable);
+	    else 											return noticeRepository.findAll(pageable);
 	}
 	
 	// 공지사항 목록화면 총데이터 개수
@@ -30,6 +33,17 @@ public class NoticeService {
 	
 	// 공지사항 상세보기
 	public NoticeDto detail(int ntcno) {return noticeRepository.findById(ntcno).orElse(null);}
+	
+	// 공지사항 조회수증가
+	public NoticeDto saveHits(int ntcno) {
+		
+		NoticeDto dto = detail(ntcno);
+		int      hits = dto.getNtcht();
+		hits++;
+		dto.setNtcht(hits++);
+		//  dto :: save시 키값이 포함 되어있는 경우 UPDATE 처리함
+		return noticeRepository.save(dto);
+	}
 	
 	// 공지사항 등록,수정,삭제 서비스
 	public NoticeDto notice(NoticeDto dto1) {

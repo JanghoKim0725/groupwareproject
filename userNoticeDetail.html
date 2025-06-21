@@ -74,42 +74,7 @@
     
     </style>
     
-    <script>
-    
-    $(function() {
-    	
-    	$("#btn_List").click(function() {location = "/notice/AdminList";});
-    	
-    	$("#btn_Modify").click(function() {
- 			let ntcno = $("#ntcno").val();
- 			location  = "/notice/2/" + ntcno;
- 		});
-    	
-		$("#btn_Delete").click(function() {
- 			
- 			if(!confirm("정말 삭제하시겠습니까?")) return false;
- 			
- 			event.preventDefault();  
- 			let ntcno = $("#ntcno").val();
- 			$.ajax({
- 				type	 : "post",	
- 				url		 : "/notice", 
- 				data     : "ntcno=" + ntcno + "&ntctt=",  
- 				dataType : "text", 
- 				success  : function(data) { 
- 					if(data == "ok") { 		
- 						alert("삭제완료!");
- 						location = "/notice/AdminList";
- 					}
- 					else 			   alert("삭제실패!");
- 				},
- 				error	 : function() {alert("전송실패!");}
- 			});
- 		});
-    	
-    });
-    
-    </script>
+    <script>$(function() {$("#btn_List").click(function() {location = "/notice/UserList";});});</script>
 
     <body>
         <!-- header 시작 -->
@@ -125,7 +90,6 @@
             <section class="contents">
                 <div class="div_notice"><font class="font_notice">공지사항</font></div>
 				<div class="content-body" align="center">
-					<input type="hidden" id="ntcno" th:value="${dto.ntcno}">
 					<table class="detailtable">
 						<colgroup>
 							<col width="20%"/>
@@ -141,11 +105,7 @@
 					</table>
 				</div>
 				<!-- button -->
-				<div class="div_button" align="center">
-					<button class="button" id="btn_Modify">수정하기</button>
-					<button class="button" id="btn_List">목록으로</button>
-					<button class="button" id="btn_Delete">삭제하기</button>
-				</div>
+				<div class="div_button" align="center"><button class="button" id="btn_List">목록으로</button></div>
             </section>
         </div>
     </body>
