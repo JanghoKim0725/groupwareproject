@@ -27,18 +27,37 @@ public class NoticeController {
 	public ModelAndView userList(@RequestParam(defaultValue = "1") int indexpage, 
 							 	 @RequestParam(defaultValue = "") String search) {
 		
+		// 화면 모델 출력
 		ModelAndView  model = new ModelAndView();
-		Long 		  total = noticeService.count();
 		
-	    // 1page를 원하면 -> 0번세팅, 검색 포함 페이징 처리
-	    Page<NoticeDto> page = noticeService.list(indexpage -1, 10, search);
+		// 총 데이터베이스(공지사항 항목) 개수
+		Long total = noticeService.count();
 		
+		// 한 페이지당 보여줄 공지사항 데이터(항목) 개수
+		int pageData = 10;  
+		
+		// 1page를 원하면 -> 0번세팅, 검색 포함 페이징 처리
+	    Page<NoticeDto> page = noticeService.list(indexpage -1, pageData, search);
+	    
 		// 화면 출력 시작번호 = (총 데이터개수 -(현재페이지번호 - 1) * 출력단위)
-		int startPageRownum = (int)(page.getTotalElements() - page.getNumber() * 5);
+		int startPageRownum = (int)(page.getTotalElements() - page.getNumber() * pageData);
+		
+		// 1화면에 출력되는 페이지 출력 범위 ex = 5 : 1 2 3 4 5
+		int pageSize = 5;
+		
+		// 출력되는 현재 페이지
+		int currentPage = (indexpage - 1) / pageSize;
+		
+		// 페이지 계산처리
+		int startPage = currentPage * pageSize + 1;
+		int   endPage = Math.min(startPage + pageSize - 1, page.getTotalPages());
 		
 		model.addObject("search", search);
 		model.addObject("indexpage", indexpage);
+		model.addObject("currentPage", indexpage); // 현재 페이지 강조 표시용(색처리 대상)
 		model.addObject("plist",page.getContent());
+		model.addObject("startPage", startPage);
+		model.addObject("endPage", endPage);
 		model.addObject("startPageRownum",startPageRownum);
 		model.addObject("ptotal",page.getTotalElements());
 		model.addObject("ptotalPage",page.getTotalPages());
@@ -52,18 +71,37 @@ public class NoticeController {
 	public ModelAndView adminList(@RequestParam(defaultValue = "1") int indexpage, 
 							 	  @RequestParam(defaultValue = "") String search) {
 		
+		// 화면 모델 출력
 		ModelAndView  model = new ModelAndView();
-		Long 		  total = noticeService.count();
 		
-	    // 1page를 원하면 -> 0번세팅, 검색 포함 페이징 처리
-	    Page<NoticeDto> page = noticeService.list(indexpage -1, 10, search);
+		// 총 데이터베이스(공지사항 항목) 개수
+		Long total = noticeService.count();
 		
+		// 한 페이지당 보여줄 공지사항 데이터(항목) 개수
+		int pageData = 10;  
+		
+		// 1page를 원하면 -> 0번세팅, 검색 포함 페이징 처리
+	    Page<NoticeDto> page = noticeService.list(indexpage -1, pageData, search);
+	    
 		// 화면 출력 시작번호 = (총 데이터개수 -(현재페이지번호 - 1) * 출력단위)
-		int startPageRownum = (int)(page.getTotalElements() - page.getNumber() * 5);
+		int startPageRownum = (int)(page.getTotalElements() - page.getNumber() * pageData);
+		
+		// 1화면에 출력되는 페이지 출력 범위 ex = 5 : 1 2 3 4 5
+		int pageSize = 5;
+		
+		// 출력되는 현재 페이지
+		int currentPage = (indexpage - 1) / pageSize;
+		
+		// 페이지 계산처리
+		int startPage = currentPage * pageSize + 1;
+		int   endPage = Math.min(startPage + pageSize - 1, page.getTotalPages());
 		
 		model.addObject("search", search);
 		model.addObject("indexpage", indexpage);
+		model.addObject("currentPage", indexpage); // 현재 페이지 강조 표시용(색처리 대상)
 		model.addObject("plist",page.getContent());
+		model.addObject("startPage", startPage);
+		model.addObject("endPage", endPage);
 		model.addObject("startPageRownum",startPageRownum);
 		model.addObject("ptotal",page.getTotalElements());
 		model.addObject("ptotalPage",page.getTotalPages());
@@ -71,7 +109,6 @@ public class NoticeController {
 		
 		return model;
 	}
-	
 	
 	// 사용자 공지사항 상세보기화면,수정하기화면 출력
 	@GetMapping("/{ntcno}")
@@ -140,7 +177,6 @@ public class NoticeController {
 		return model;
 	}
 		
-	
 	// 관리자 공지사항 등록화면 출력
 	@GetMapping("/AdminWrite")
 	public ModelAndView AdminWrite() {
