@@ -125,6 +125,7 @@
 					</form>
 					<table class="noticetable" th:if="${ptotalPage > 0}">
 						<colgroup>
+							<col style="width:8%">
 			 				<col style="width:8%">
 							<col style="width:auto">
 							<col style="width:12%">
@@ -133,6 +134,7 @@
 						</colgroup>
 						<thead style="background-color:yellow;">
 							<tr>
+								<th scope="col">구분</th>
 								<th scope="col">번호</th>
 								<th scope="col">제목</th>
 								<th scope="col">작성자</th>
@@ -141,8 +143,12 @@
 							</tr>
 						</thead>
 						<tbody style="background-color:white;">
-							<tr  th:each="result,myState : ${plist}">
-								<td align="center" th:text="${startPageRownum - myState.index}"></td>
+							<tr th:each="result,myState : ${plist}" 
+								th:style="${result.ntcca == '필수'} ? 'background-color:#ffefe8;' : '' ">
+								<td align="center" th:text="${result.ntcca}"></td>
+								<td align="center" 
+									th:text="${startPageRownum - myState.index}">
+								</td>
 								<td align="center">
 									<a th:href="@{|/notice/1/${result.ntcno}|}" th:text="${result.ntctt}" 
 									   th:style="${'color:blue;'}">

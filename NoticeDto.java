@@ -37,6 +37,10 @@ public class NoticeDto {
 	@Column(nullable = false, length = 200)
 	private String    ntcwr;
 	
+	// 유형 일반/필수
+	@Column(nullable = false, length = 50)
+	private String 	  ntcca;
+	
 	// 게시일
 	@CreationTimestamp
 	private Timestamp ntcrd;
