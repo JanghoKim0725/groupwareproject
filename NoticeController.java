@@ -1,7 +1,5 @@
 package com.jpaproject.controller;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,10 +39,10 @@ public class NoticeController {
 		// 1page를 원하면 -> 0번세팅, 검색 포함 페이징 처리
 	    Page<NoticeDto> page = noticeService.list(indexpage -1, pageData, search);
 	    
-		// 화면 출력 시작번호 = (총 데이터개수 -(현재페이지번호 - 1) * 출력단위) (ex: 12개 데이터면 2페이지 공간에 1페이지 10개, 2페이지 2개형식)
+		// 화면 출력 시작번호 = (총 데이터개수 -(현재페이지번호 - 1) * 출력단위)
 		int startPageRownum = (int)(page.getTotalElements() - page.getNumber() * pageData);
 		
-		// 1화면에 출력되는 최대 페이지 숫자 출력 범위 ex = 5 : 1 2 3 4 5
+		// 1화면에 출력되는 페이지 출력 범위 ex = 5 : 1 2 3 4 5
 		int pageSize = 5;
 		
 		// 출력되는 현재 페이지
@@ -72,7 +70,7 @@ public class NoticeController {
 	@GetMapping("/AdminList")
 	public ModelAndView adminList(@RequestParam(defaultValue = "1") int indexpage, 
 							 	  @RequestParam(defaultValue = "") String search) {
-		
+			
 		// 화면 모델 출력
 		ModelAndView  model = new ModelAndView();
 		
@@ -85,20 +83,10 @@ public class NoticeController {
 		// 1page를 원하면 -> 0번세팅, 검색 포함 페이징 처리
 	    Page<NoticeDto> page = noticeService.list(indexpage -1, pageData, search);
 	    
-	    // 화면 출력 시작번호 = (총 데이터개수 -(현재페이지번호 - 1) * 출력단위) (ex: 12개 데이터면 2페이지 공간에 1페이지 10개, 2페이지 2개형식)
-		Integer startPageRownum = (int)(page.getTotalElements() - page.getNumber() * pageData);
+		// 화면 출력 시작번호 = (총 데이터개수 -(현재페이지번호 - 1) * 출력단위)
+		int startPageRownum = (int)(page.getTotalElements() - page.getNumber() * pageData);
 		
-		// 공시사항 필수 or 일반 유형
-		List<NoticeDto> category = new ArrayList<>(page.getContent());
-		
-		// 필수일 경우 맨위로 역순정렬
-		category.sort((a, b) -> {
-		    if (a.getNtcca().equals("필수") && !b.getNtcca().equals("필수")) return -1;
-		    else if (!a.getNtcca().equals("필수") && b.getNtcca().equals("필수")) return 1;
-		    else return b.getNtcno() - a.getNtcno();  // 일반 공지 최신순
-		});
-		
-		// 1화면에 출력되는 최대 페이지 숫자 출력 범위 ex = 5 : 1 2 3 4 5
+		// 1화면에 출력되는 페이지 출력 범위 ex = 5 : 1 2 3 4 5
 		int pageSize = 5;
 		
 		// 출력되는 현재 페이지
@@ -112,7 +100,6 @@ public class NoticeController {
 		model.addObject("indexpage", indexpage);
 		model.addObject("currentPage", indexpage); // 현재 페이지 강조 표시용(색처리 대상)
 		model.addObject("plist",page.getContent());
-		model.addObject("plist",category); // 필수,일반 구분 역순정렬
 		model.addObject("startPage", startPage);
 		model.addObject("endPage", endPage);
 		model.addObject("startPageRownum",startPageRownum);
