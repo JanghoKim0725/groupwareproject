@@ -51,4 +51,16 @@ public class NoticeDto {
 	
 	// 조회수
 	private int ntcht = 0;
+	
+	// 파일1
+	@Column (length = 200)
+	private String file1;
+	
+	// 파일2
+	@Column (length = 200)
+	private String file2;
+	
+	// 파일3
+	@Column (length = 200)
+	private String file3;
 }

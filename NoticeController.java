@@ -1,5 +1,7 @@
 package com.jpaproject.controller;
 
+import java.io.File;
+
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -7,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import com.jpaproject.entity.NoticeDto;
 import com.jpaproject.service.NoticeService;
@@ -177,7 +180,7 @@ public class NoticeController {
 		return model;
 	}
 		
-	// 관리자 공지사항 등록화면 출력
+	// 관리자 공지사항 등록화면 출력 
 	@GetMapping("/AdminWrite")
 	public ModelAndView AdminWrite() {
 			
@@ -186,10 +189,37 @@ public class NoticeController {
 		return model;
 	}
 		
-	// 관리자 공지사항 등록,수정,삭제 서비스
+	// 관리자 공지사항 등록,수정,삭제 서비스 (+파일등록(삽입기능))
 	@PostMapping
-	public String notice(NoticeDto dto1) {
-			
+	public String notice(NoticeDto dto1,
+						 @RequestParam("file1") MultipartFile file1,
+						 @RequestParam("file2") MultipartFile file2,
+						 @RequestParam("file3") MultipartFile file3) throws Exception {	
+		
+		// 업로드 경로 (자신의 로컬 경로 또는 서버 디렉토리로 바꾸세요)
+	    String uploadPath = "C:/eclipse-workspace8/myhome/src/main/webapp/data/";
+
+	    // 파일1 삽입처리
+	    if (!file1.isEmpty()) {
+	        String fname1 = System.currentTimeMillis() + "-1_" + file1.getOriginalFilename();
+	        file1.transferTo(new File(uploadPath + fname1));
+	        dto1.setFile1(fname1);
+	    }
+
+	    // 파일2 삽입처리
+	    if (!file2.isEmpty()) {
+	        String fname2 = System.currentTimeMillis() + "-2_" + file2.getOriginalFilename();
+	        file2.transferTo(new File(uploadPath + fname2));
+	        dto1.setFile2(fname2);
+	    }
+
+	    // 파일3 삽입처리
+	    if (!file3.isEmpty()) {
+	        String fname3 = System.currentTimeMillis() + "-3_" + file3.getOriginalFilename();
+	        file3.transferTo(new File(uploadPath + fname3));
+	        dto1.setFile3(fname3);
+	    }
+		
 		String 	  msg = "ok";
 		NoticeDto dto2 = noticeService.notice(dto1);
 		if(dto2 == null) msg = "fail";  

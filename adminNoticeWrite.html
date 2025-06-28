@@ -77,7 +77,7 @@
 		 .writetable{height:300px;}
 		
 		 /*버튼 div css*/
-		 .div_button {margin-top:-450px;}
+		 .div_button {margin-top:-400px;}
 		 
 		 /*버튼*/
 		.button {
@@ -162,7 +162,7 @@
 
             <section class="contents">
                 <div class="div_notice"><font class="font_notice">공지사항</font></div>
-				<form id="frm">
+				<form id="frm" enctype="multipart/form-data">
 					<div class="content-body" align="center">
 						<table class="writetable">
 							<colgroup>
@@ -188,6 +188,14 @@
 									&nbsp;<font size="4">필수</font>
 									<input type="radio" class="radio" id="ntcca" name="ntcca" value="일반">
 									&nbsp;<font size="4">일반</font>
+								</td>
+							</tr>
+							<tr>
+								<th>파일</th>
+								<td>
+									&nbsp;&nbsp;<input type="file" id="file1" name="file1"> <br>
+									&nbsp;&nbsp;<input type="file" id="file2" name="file2"> <br>
+									&nbsp;&nbsp;<input type="file" id="file3" name="file3"> 
 								</td>
 							</tr>
 							<tr>
