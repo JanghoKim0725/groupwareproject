@@ -14,45 +14,41 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name="I_notice")
+@Table(name="G_notice")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class I_noticeDto {
+public class G_noticeDto {
 	
 	@Id //기본키 설정 (고유번호)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int   	  intcno;
+	private int   	  gntcno;
 	
 	// 비밀번호
 	@Column(nullable = false, length = 200)
-	private String    intcps;
+	private String    gntcps;
 	
 	// 제목
 	@Column(nullable = false, length = 200)
-	private String    intctt;
+	private String    gntctt;
 	
 	// 작성자(관리자)
 	@Column(nullable = false, length = 200)
-	private String    intcwr;
+	private String    gntcwr;
 	
 	// 부서
 	@Column(nullable = false, length = 50)
-	private String 	  indept;
-	
-	// 유형 일반/필수
-	@Column(nullable = false, length = 50)
-	private String 	  intcca;
+	private String 	  gndept;
 	
 	// 게시일
 	@CreationTimestamp
-	private Timestamp intcrd;
+	private Timestamp gntcrd;
 	
 	// 내용
 	@Column(length = 5000)
-	private String    intcct;
+	private String    gntcct;
 	
 	// 조회수
-	private int intcht = 0;
+	private int gntcht = 0;
 }
