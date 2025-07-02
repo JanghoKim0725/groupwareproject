@@ -9,7 +9,7 @@ import com.jpaproject.entity.G_noticeDto;
 
 public interface G_noticeRepository extends JpaRepository<G_noticeDto,Integer> {
 	
-	// 일반공지사항 검색기능 (제목,부서별로 구분)
+	// 일반공지사항 검색기능 (제목구분)
 	@Query(value = "select * from G_notice where (gntctt like '%' || :search || '%' or gndept like '%' || :search || '%') ",
 		   nativeQuery = true)
 	

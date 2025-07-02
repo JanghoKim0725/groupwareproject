@@ -11,7 +11,7 @@
     
     <style>
     
-	    /*전체화면 css*/ 
+	     /*전체화면 css*/ 
 		.content-body {
 			width: 100%;
 		 	height:800px; 	
@@ -31,10 +31,30 @@
 			font-size:40px;
 		}
 		 
+		/*선택란 div css*/
+		.div_select {margin-top:-37px;}
+		 
+		/*선택란*/
+		.select {
+		 	width:100px;
+		 	height:34px;
+		 	margin-left:15px;
+		 	font-size:20px;
+		 	transform: scale(1.2);
+		 	border:1px solid black;
+		 	border-radius:8px;
+		 	padding:3px;
+		}
+		 
 		/*검색입력 div css*/
-		.div_search {
-			margin-top:-42px;
+		.div_search1 {
+			margin-top:-37px;
 			margin-left:400px;
+		}
+		
+		.div_search2 {
+			margin-top:-41px;
+			margin-left:730px;
 		}
 		 
 		/*검색입력란*/
@@ -51,15 +71,17 @@
 			width:80px;
 			height:41px;
 			border-radius:10px;
+			border:1px solid #777;
 			font-size:20px;
 			font-weight:bold;
 			cursor:pointer;
-			background-color:white;
+			background-color:#777;
+			color:white;
 		}
 		 
 		/*공지사항 테이블 css*/
 		.noticetable{
-			margin-top:50px;
+			margin-top:30px;
 		 	width:1000px;
 		}
 		
@@ -72,15 +94,24 @@
 		.div_page {margin-top:-400px;}
 	    
 	    /*페이지 td css*/
-	    .td_page {
-	    	padding:10px;
-	    	border:0;
-	    	font-size:24px;
+	    .td_page1 {
+	    	width:40px;
+	    	font-size:20px;
+	    	text-align:center;
+	    	border:1px solid #777;
+	    }
+	    
+	    .td_page2 {
+	    	width:40px;
+	    	font-size:20px;
+	    	text-align:center;
+	    	border:1px solid #777;
+	    	background-color:#777;
 	    }
 	    
 	    /*현재 페이지 색처리*/
-	    .current-page {color:blue;}
-    
+	    .current-page {color:white;}
+	    
     </style>
 
     <body>
@@ -98,10 +129,19 @@
                 <div class="div_notice"><font class="font_notice">전체공지사항</font></div>
 				<div class="content-body" align="center">
 					<form method="get" action="/Inotice/UserList">
-						<div class="div_search">
-						 	<input type="text" class="search" name="search" th:value="${search}"> &nbsp;&nbsp;
-							<button type="submit" class="search_button">검색</button>
+						<div class="div_select">
+							<select id="indept" name="indept" class="select">
+								<option value="">부서</option>
+								<option value="전체">전체</option>
+								<option value="인사">인사</option>
+								<option value="개발">개발</option>
+								<option value="영업">영업</option>
+							</select>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						</div>
+						<div class="div_search1">
+							<input type="text" class="search" name="search" th:value="${search}"> &nbsp;&nbsp;
+						</div>
+						<div class="div_search2"><button type="submit" class="search_button">검색</button></div>
 					</form>
 					<table class="noticetable" th:if="${ptotalPage > 0}">
 						<colgroup>
@@ -112,7 +152,7 @@
 							<col style="width:8%">
 							<col style="width:12%">
 						</colgroup>
-						<thead style="background-color:yellow;">
+						<thead style="background-color:#ccc;">
 							<tr>
 								<th scope="col">번호</th>
 								<th scope="col">제목</th>
@@ -154,31 +194,32 @@
 					<table>
 						<tr>
 							<!-- 맨 앞으로 (indexpage=1) -->
-							<td class="td_page">
+							<td class="td_page1">
 								<a th:href="@{|/Inotice/UserList?indexpage=1&search=${search}|}">&lt;&lt;</a>
 							</td>
 							<!-- 이전 페이지 (indexpage=current-1, 단 1보다 작으면 1) -->
-							<td class="td_page">
+							<td class="td_page1">
 								<a th:href=
 								   "@{|/Inotice/UserList?indexpage=${indexpage > 1 ? indexpage - 1 : 1}&search=${search}|}">
 									&lt;
 								</a>
 							</td>
 							<!-- 현재 페이지 -->
-							<td class="td_page" th:each="n : ${#numbers.sequence(startPage, endPage)}">
+							<td th:class=" ${n} == ${indexpage} ? 'td_page2' : 'td_page1' " 
+								th:each="n : ${#numbers.sequence(startPage, endPage)}">
 								<a th:href="@{|/Inotice/UserList?indexpage=${n}&search=${search}|}">
 									<span th:text="${n}" th:class="${n} == ${indexpage} ? 'current-page' : '' "></span>
 								</a>
 							</td>
 							<!-- 다음 페이지 (indexpage=current+1, 단 totalPage보다 크면 totalPage) -->
-							<td class="td_page">
+							<td class="td_page1">
 								<a th:href=
 				  "@{|/Inotice/UserList?indexpage=${indexpage < ptotalPage ? indexpage + 1 : ptotalPage}&search=${search}|}">
 								   &gt;
 								</a>
 							</td>					
 							<!-- 맨 뒤로 -->
-							<td class="td_page">
+							<td class="td_page1">
 								<a th:href="@{|/Inotice/UserList?indexpage=${ptotalPage}&search=${search}|}">&gt;&gt;</a>
 							</td>
 						</tr>
