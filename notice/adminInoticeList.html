@@ -31,14 +31,14 @@
 			font-size:40px;
 		}
 		
-		/*작성하기 div css*/
-		.div_write {
+		/*부서버튼 div css*/
+		.div_dept {
 		 	margin-top:-58px;
 			margin-right:500px;	
 		}
 		 
-		/*작성하기버튼*/
-		.write_button {
+		/*작성하기, 부서버튼*/
+		.button {
 			width:120px;
 			height:40px;
 			border-radius:10px;
@@ -51,31 +51,16 @@
 			color:white;
 		}
 		 
-		 /*선택란 div css*/
-		 .div_select {margin-top:-37px;}
-		 
-		 /*선택란*/
-		 .select {
-		 	width:100px;
-		 	height:34px;
-		 	margin-left:15px;
-		 	font-size:20px;
-		 	transform: scale(1.2);
-		 	border:1px solid black;
-		 	border-radius:8px;
-		 	padding:3px;
-		 }
-		 
-		 /*검색입력 div css*/
+		/*검색입력 div css*/
 		 .div_search1 {
 			margin-top:-37px;
 			margin-left:400px;
-		 }
-		
+		}
+
 		.div_search2 {
 			margin-top:-41px;
 			margin-left:730px;
-		 }
+		}
 		 
 		/*검색입력란*/
 		.search {
@@ -134,7 +119,15 @@
     
     </style>
     
-    <script>$(function() {$("#btn_Write").click(function() {location = "/Inotice/AdminWrite";});});</script>
+    <script>
+    	
+    	$(function() {
+    		$("#btn_Write").click(function() {
+    			location = "/Inotice/AdminWrite";
+    		});
+    	});
+    
+    </script>
 
     <body>
         <!-- header 시작 -->
@@ -148,23 +141,23 @@
             <!-- nav 종료 -->
 
             <section class="contents">
-                <div class="div_notice"><font class="font_notice">전체공지사항</font></div>
+                <div class="div_notice">
+                	<font class="font_notice">전체공지사항</font>
+                </div>
 				<div class="content-body" align="center">
-					<div class="div_write"><button type="button" class="write_button" id="btn_Write">작성하기</button></div>
+					<div class="div_dept">
+						<button type="button" class="button">전체부서</button>
+						<button type="button" class="button">개발부</button>
+						<button type="button" class="button">인사부</button>
+						<button type="button" class="button">영업부</button>
+					</div>
 					<form method="get" action="/Inotice/AdminList">
-						<div class="div_select">
-							<select id="indept" name="indept" class="select">
-								<option value="">부서</option>
-								<option value="전체">전체</option>
-								<option value="인사">인사</option>
-								<option value="개발">개발</option>
-								<option value="영업">영업</option>
-							</select>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						</div>
 						<div class="div_search1">
 							<input type="text" class="search" name="search" th:value="${search}"> &nbsp;&nbsp;
 						</div>
-						<div class="div_search2"><button type="submit" class="search_button">검색</button></div>
+						<div class="div_search2">
+							<button type="submit" class="search_button">검색</button>
+						</div>
 					</form>
 					<table class="noticetable" th:if="${ptotalPage > 0}">
 						<colgroup>
@@ -172,17 +165,17 @@
 							<col style="width:auto">
 							<col style="width:12%">
 							<col style="width:12%">
-							<col style="width:8%">
+							<col style="width:12%">
 							<col style="width:12%">
 						</colgroup>
 						<thead style="background-color:#ccc;">
 							<tr>
 								<th scope="col">번호</th>
 								<th scope="col">제목</th>
-								<th scope="col">작성자</th>
 								<th scope="col">부서</th>
+								<th scope="col">작성자</th>
 								<th scope="col">조회수</th>
-								<th scope="col">작성일</th>
+								<th scope="col">게시일</th>
 							</tr>
 						</thead>
 						<tbody style="background-color:white;">
@@ -199,8 +192,8 @@
 									   th:style="${'color:blue;'}">
 									</a>
 								</td>
-								<td align="center" th:text="${result.intcwr}" th:style="${'color:blue;'}"></td>
-								<td align="center" th:text="${result.indept}" th:style="${'color:blue;'}"></td>
+								<td align="center" th:text="${result.deptno}" th:style="${'color:blue;'}"></td>
+								<td align="center">관리자</td>
 								<td align="center" th:text="${result.intcht}" th:style="${'color:blue;'}"></td>
 								<td align="center" th:text="${#strings.substring(result.intcrd,0,10)}"></td>
 							</tr>
@@ -247,6 +240,9 @@
 							</td>
 						</tr>
 				    </table>
+				    <div style="margin-right:870px; margin-top:-37px;">
+				    	<button type="button" class="button" id="btn_Write">작성하기</button>
+				    </div>
 				</div>
             </section>
         </div>

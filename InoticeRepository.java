@@ -16,12 +16,4 @@ public interface InoticeRepository extends JpaRepository<InoticeDto,Integer> {
 	
 	// 검색에 따른 데이터 개수에 따라 페이지 재 정렬
 	Page<InoticeDto> findByIntcttContaining(@Param("search")String search, Pageable pageable);
-	
-	
-	// 전체공지사항 분류기능 + 필수공지사항 -> 일반공지사항 순으로 역순정렬 (부서분류)
-	@Query(value = " select * from Inotice where indept = :indept "
-				 + " order by case when intcca = '필수' then 0 else 1 end, intcno desc", 
-		   countQuery = " select count(*) from Inotice where indept = :indept ", nativeQuery = true)
-	// 분류에 따른 데이터 개수에 따라 페이지 재 정렬
-	Page<InoticeDto> findByIndeptContaining(@Param("indept")String indept, Pageable pageable);
 }

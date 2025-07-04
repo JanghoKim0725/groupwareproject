@@ -11,7 +11,7 @@
     
     <style>
     
-	     /*전체화면 css*/ 
+	    /*전체화면 css*/ 
 		.content-body {
 			width: 100%;
 		 	height:800px; 	
@@ -30,20 +30,25 @@
 			font-weight:900;       
 			font-size:40px;
 		}
-		 
-		/*선택란 div css*/
-		.div_select {margin-top:-37px;}
-		 
-		/*선택란*/
-		.select {
-		 	width:100px;
-		 	height:34px;
-		 	margin-left:15px;
-		 	font-size:20px;
-		 	transform: scale(1.2);
-		 	border:1px solid black;
-		 	border-radius:8px;
-		 	padding:3px;
+		
+		/*부서버튼 div css*/
+		.div_dept {
+		 	margin-top:-58px;
+			margin-right:500px;	
+		}
+		
+		/*부서버튼 css*/
+		.button {
+			width:120px;
+			height:40px;
+			border-radius:10px;
+			border:1px solid #777;
+			font-size:20px;
+			font-weight:bold;
+			padding:3px;
+			cursor:pointer;
+			background-color:#777;
+			color:white;
 		}
 		 
 		/*검색입력 div css*/
@@ -128,16 +133,13 @@
             <section class="contents">
                 <div class="div_notice"><font class="font_notice">전체공지사항</font></div>
 				<div class="content-body" align="center">
+					<div class="div_dept">
+						<button type="button" class="button">전체부서</button>
+						<button type="button" class="button">개발부</button>
+						<button type="button" class="button">인사부</button>
+						<button type="button" class="button">영업부</button>
+					</div>
 					<form method="get" action="/Inotice/UserList">
-						<div class="div_select">
-							<select id="indept" name="indept" class="select">
-								<option value="">부서</option>
-								<option value="전체">전체</option>
-								<option value="인사">인사</option>
-								<option value="개발">개발</option>
-								<option value="영업">영업</option>
-							</select>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						</div>
 						<div class="div_search1">
 							<input type="text" class="search" name="search" th:value="${search}"> &nbsp;&nbsp;
 						</div>
@@ -149,17 +151,17 @@
 							<col style="width:auto">
 							<col style="width:12%">
 							<col style="width:12%">
-							<col style="width:8%">
+							<col style="width:12%">
 							<col style="width:12%">
 						</colgroup>
 						<thead style="background-color:#ccc;">
 							<tr>
 								<th scope="col">번호</th>
 								<th scope="col">제목</th>
-								<th scope="col">작성자</th>
 								<th scope="col">부서</th>
+								<th scope="col">작성자</th>
 								<th scope="col">조회수</th>
-								<th scope="col">작성일</th>
+								<th scope="col">게시일</th>
 							</tr>
 						</thead>
 						<tbody style="background-color:white;">
@@ -176,8 +178,8 @@
 									   th:style="${'color:blue;'}">
 									</a>
 								</td>
-								<td align="center" th:text="${result.intcwr}" th:style="${'color:blue;'}"></td>
-								<td align="center" th:text="${result.indept}" th:style="${'color:blue;'}"></td>
+								<td align="center" th:text="${result.deptno}" th:style="${'color:blue;'}"></td>
+								<td align="center">관리자</td>
 								<td align="center" th:text="${result.intcht}" th:style="${'color:blue;'}"></td>
 								<td align="center" th:text="${#strings.substring(result.intcrd,0,10)}"></td>
 							</tr>
