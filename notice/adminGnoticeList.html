@@ -37,6 +37,17 @@
 			margin-right:500px;	
 		}
 		 
+		/*작성하기 버튼 div css*/
+		.div_write1 {
+			margin-top:-40px;
+			margin-left:293px;
+		}
+		
+		.div_write2 {
+			margin-top:-372px;
+			margin-left:293px;
+		}
+		
 		/*작성하기, 부서버튼*/
 		.button {
 			width:120px;
@@ -52,15 +63,15 @@
 		}
 		 
 		/*검색입력 div css*/
-		.div_search1 {
+		 .div_search1 {
 			margin-top:-37px;
 			margin-left:400px;
 		}
-		
+
 		.div_search2 {
 			margin-top:-41px;
 			margin-left:730px;
-		 }
+		}
 		 
 		/*검색입력란*/
 		.search {
@@ -96,7 +107,7 @@
 		}
 		 
 		/*페이지 div css*/
-		.div_page {margin-top:-400px;}
+		.div_page {margin-top:-370px;}
 	    
 	    /*페이지 td css*/
 	    .td_page1 {
@@ -119,7 +130,18 @@
     
     </style>
     
-    <script>$(function() {$("#btn_Write").click(function() {location = "/Gnotice/AdminWrite";});});</script>
+    <script>
+    	
+    	// 작성하기 버튼 실행
+    	$(function() {$("#btn_Write").click(function() {location = "/Gnotice/AdminWrite";});});
+    	
+    	// 각 부서 버튼 실행
+    	$(function() {$("#btn_Dept1").click(function() {location = "/Gnotice/AdminList?deptno=전체부서";});});
+    	$(function() {$("#btn_Dept2").click(function() {location = "/Gnotice/AdminList?deptno=개발부";});});
+    	$(function() {$("#btn_Dept3").click(function() {location = "/Gnotice/AdminList?deptno=인사부";});});
+    	$(function() {$("#btn_Dept4").click(function() {location = "/Gnotice/AdminList?deptno=영업부";});});
+    	
+    </script>
 
     <body>
         <!-- header 시작 -->
@@ -136,10 +158,10 @@
                 <div class="div_notice"><font class="font_notice">일반공지사항</font></div>
 				<div class="content-body" align="center">
 					<div class="div_dept">
-						<button type="button" class="button">전체부서</button>
-						<button type="button" class="button">개발부</button>
-						<button type="button" class="button">인사부</button>
-						<button type="button" class="button">영업부</button>
+						<button type="button" class="button" id="btn_Dept1">전체부서</button>
+						<button type="button" class="button" id="btn_Dept2">개발부</button>
+						<button type="button" class="button" id="btn_Dept3">인사부</button>
+						<button type="button" class="button" id="btn_Dept4">영업부</button>
 					</div>
 					<form method="get" action="/Gnotice/AdminList">
 						<div class="div_search1">
@@ -149,14 +171,14 @@
 					</form>
 					<table class="noticetable" th:if="${ptotalPage > 0}">
 						<colgroup>
-			 				<col style="width:10%">
+			 				<col style="width:8%"  >
 							<col style="width:auto">
-							<col style="width:12%">
-							<col style="width:12%">
-							<col style="width:12%">
-							<col style="width:12%">
+							<col style="width:12%" >
+							<col style="width:12%" >
+							<col style="width:8%"  >
+							<col style="width:12%" >
 						</colgroup>
-						<thead style="background-color:#ccc;">
+						<thead style="background-color:#f2f2f2;">
 							<tr>
 								<th scope="col">번호</th>
 								<th scope="col">제목</th>
@@ -222,9 +244,9 @@
 							</td>
 						</tr>
 				    </table>
-				    <div style="margin-right:870px; margin-top:-37px;">
-				    	<button type="button" class="button" id="btn_Write">작성하기</button>
-				    </div>
+				</div>
+				<div th:class= "${#lists.isEmpty(plist)} ? 'div_write2' : div_write1">
+					<button type="button" class="button" id="btn_Write">작성하기</button>
 				</div>
             </section>
         </div>

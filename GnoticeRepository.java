@@ -14,4 +14,7 @@ public interface GnoticeRepository extends JpaRepository<GnoticeDto,Integer> {
 	
 	// 검색에 따른 데이터 개수에 따라 페이지 재 정렬
 	Page<GnoticeDto> findByGntcttContaining(@Param("search")String search, Pageable pageable);
+	
+	// 부서분류에 따른 데이터 개수에 따라 페이지 재 정렬
+	Page<GnoticeDto> findByDeptnoContaining(String deptno, Pageable pageable);
 }

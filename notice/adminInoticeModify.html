@@ -21,7 +21,7 @@
 		th {
 		 	font-size:20px;
 		 	font-weight:bold;
-		 	background-color:#ccc;
+		 	background-color:#f2f2f2;
 		 	border:1px solid black;
 		}
 		 
@@ -130,9 +130,9 @@
 	 				return false;
 	 			}
 	 			
-	 			if ($("#indept").val() === "") {
+	 			if ($("#deptno").val() === "") {
 	 			    alert("부서를 선택하세요.");
-	 			    $("#indept").focus();
+	 			    $("#deptno").focus();
 	 			    return false;
 	 			}
 	 			
@@ -179,7 +179,6 @@
                 <div class="div_notice"><font class="font_notice">전체공지사항</font></div>
 				<form id="frm" th:object="${dto}">
 					<input type="hidden" name="intcno" th:value="${dto.intcno}">
-					<input type="hidden" id="originPw" name="originPw" th:value="${dto.intcps}">
 					<div class="content-body" align="center">
 						<table class="modifytable">
 							<colgroup>

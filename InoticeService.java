@@ -19,10 +19,17 @@ public class InoticeService {
 	}
 	
 	// 전체공지사항 목록화면 출력 (필수공지사항 -> 일반공지사항 순으로 역순 정렬 + 검색기능에 따른 데이터 개수에 따라 페이지 재 정렬)
-	public Page<InoticeDto> list(int page,int size,String search) {
+	public Page<InoticeDto> list(int page,int size,String search,String deptno) {
 			
 		 Pageable pageable = PageRequest.of(page,size);
-		 return inoticeRepository.findByIntcttContaining(search, pageable);
+		 
+		 // 모든부서이거나, 부서 필터가 없을 때
+		 if(deptno == null || deptno.isEmpty() || deptno.equals("")) {
+			  return inoticeRepository.findByIntcttContaining(search,pageable);
+		 }
+		 
+		 // 특정부서일 때 
+		 else return inoticeRepository.findByDeptnoContaining(deptno,pageable);
 	}
 	
 	// 전체공지사항 목록화면 총데이터 개수

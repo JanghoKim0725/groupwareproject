@@ -27,7 +27,8 @@ public class GnoticeController {
 	// 사용자 일반공지사항 목록화면 출력
 	@GetMapping("/UserList")
 	public ModelAndView userList(@RequestParam(defaultValue = "1") int indexpage, 
-							 	 @RequestParam(defaultValue = "") String search) {
+							 	 @RequestParam(defaultValue = "") String search,
+							 	 @RequestParam(defaultValue =  "")String deptno) {
 		
 		// 화면 모델 출력
 		ModelAndView  model = new ModelAndView();
@@ -39,7 +40,7 @@ public class GnoticeController {
 		int pageData = 10;  
 		
 		// 1page를 원하면 -> 0번세팅, 검색 포함 페이징 처리
-	    Page<GnoticeDto> page = gnoticeService.list(indexpage -1, pageData, search);
+	    Page<GnoticeDto> page = gnoticeService.list(indexpage -1, pageData, search, deptno);
 	    
 		// 화면 출력 시작번호 = (총 데이터개수 -(현재페이지번호 - 1) * 출력단위)
 		int startPageRownum = (int)(page.getTotalElements() - page.getNumber() * pageData);
@@ -55,6 +56,7 @@ public class GnoticeController {
 		int   endPage = Math.min(startPage + pageSize - 1, page.getTotalPages());
 		
 		model.addObject("search", search);
+		model.addObject("deptno", deptno);
 		model.addObject("indexpage", indexpage);
 		model.addObject("currentPage", indexpage); // 현재 페이지 강조 표시용(색처리 대상)
 		model.addObject("plist",page.getContent());
@@ -71,7 +73,8 @@ public class GnoticeController {
 	// 관리자 일반공지사항 목록화면 출력
 	@GetMapping("/AdminList")
 	public ModelAndView adminList(@RequestParam(defaultValue = "1") int indexpage, 
-							 	  @RequestParam(defaultValue = "") String search) {
+							 	  @RequestParam(defaultValue = "") String search,
+							 	  @RequestParam(defaultValue =  "")String deptno) {
 			
 		// 화면 모델 출력
 		ModelAndView  model = new ModelAndView();
@@ -83,7 +86,7 @@ public class GnoticeController {
 		int pageData = 10;  
 		
 		// 1page를 원하면 -> 0번세팅, 검색 포함 페이징 처리
-	    Page<GnoticeDto> page = gnoticeService.list(indexpage -1, pageData, search);
+	    Page<GnoticeDto> page = gnoticeService.list(indexpage -1, pageData, search, deptno);
 	    
 		// 화면 출력 시작번호 = (총 데이터개수 -(현재페이지번호 - 1) * 출력단위)
 		int startPageRownum = (int)(page.getTotalElements() - page.getNumber() * pageData);
@@ -99,6 +102,7 @@ public class GnoticeController {
 		int   endPage = Math.min(startPage + pageSize - 1, page.getTotalPages());
 		
 		model.addObject("search", search);
+		model.addObject("deptno", deptno);
 		model.addObject("indexpage", indexpage);
 		model.addObject("currentPage", indexpage); // 현재 페이지 강조 표시용(색처리 대상)
 		model.addObject("plist",page.getContent());

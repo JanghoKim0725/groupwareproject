@@ -19,10 +19,17 @@ public class GnoticeService {
 	}
 	
 	// 일반공지사항 목록화면 출력 (검색기능에 따른 데이터 개수에 따라 페이지 재 정렬)
-	public Page<GnoticeDto> list(int page,int size,String search) {
+	public Page<GnoticeDto> list(int page,int size,String search,String deptno) {
 			
 		 Pageable pageable = PageRequest.of(page,size);
-		 return gnoticeRepository.findByGntcttContaining(search, pageable);
+		 
+		// 모든부서이거나, 부서 필터가 없을 때
+		 if(deptno == null || deptno.isEmpty() || deptno.equals("")) {
+			  return gnoticeRepository.findByGntcttContaining(search,pageable);
+		 }
+		 
+		 // 특정부서일 때 
+		 else return gnoticeRepository.findByDeptnoContaining(deptno,pageable);
 	}
 	
 	// 일반공지사항 목록화면 총데이터 개수
