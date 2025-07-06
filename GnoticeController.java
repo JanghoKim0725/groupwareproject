@@ -39,7 +39,7 @@ public class GnoticeController {
 		// 한 페이지당 보여줄 공지사항 데이터(항목) 개수
 		int pageData = 10;  
 		
-		// 1page를 원하면 -> 0번세팅, 검색 포함 페이징 처리
+		// 1page를 원하면 -> 0번세팅, 검색,분류 포함 페이징 처리
 	    Page<GnoticeDto> page = gnoticeService.list(indexpage -1, pageData, search, deptno);
 	    
 		// 화면 출력 시작번호 = (총 데이터개수 -(현재페이지번호 - 1) * 출력단위)
@@ -85,7 +85,7 @@ public class GnoticeController {
 		// 한 페이지당 보여줄 공지사항 데이터(항목) 개수
 		int pageData = 10;  
 		
-		// 1page를 원하면 -> 0번세팅, 검색 포함 페이징 처리
+		// 1page를 원하면 -> 0번세팅, 검색,분류 포함 페이징 처리
 	    Page<GnoticeDto> page = gnoticeService.list(indexpage -1, pageData, search, deptno);
 	    
 		// 화면 출력 시작번호 = (총 데이터개수 -(현재페이지번호 - 1) * 출력단위)

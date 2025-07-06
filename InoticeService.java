@@ -33,7 +33,7 @@ public class InoticeService {
 	}
 	
 	// 전체공지사항 목록화면 총데이터 개수
-	public Long count() {
+	public long count() {
 		return inoticeRepository.count();
 	}
 	
@@ -51,6 +51,11 @@ public class InoticeService {
 		dto.setIntcht(hits++);
 		//  dto :: save시 키값이 포함 되어있는 경우 UPDATE 처리함
 		return inoticeRepository.save(dto);
+	}
+	
+	// 전체공지사항 유형(필수)값 개수
+	public long countByIntcca() {
+		return inoticeRepository.countByIntcca();
 	}
 	
 	// 전체공지사항 등록,수정,삭제 서비스

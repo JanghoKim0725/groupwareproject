@@ -17,6 +17,10 @@ public interface InoticeRepository extends JpaRepository<InoticeDto,Integer> {
 	// 검색에 따른 데이터 개수에 따라 페이지 재 정렬
 	Page<InoticeDto> findByIntcttContaining(@Param("search")String search, Pageable pageable);
 	
+	// 유형(필수) 값 개수 계산 SQL
+	@Query(value = " select count(*) from Inotice where intcca = '필수' ", nativeQuery = true)
+	long countByIntcca();
+	
 	// 부서분류에 따른 데이터 개수에 따라 페이지 재 정렬
 	Page<InoticeDto> findByDeptnoContaining(String deptno, Pageable pageable);
 }

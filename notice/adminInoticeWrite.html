@@ -114,7 +114,7 @@
     
     </style>
     
-    <script>
+    <script th:inline="javascript">
     
     	$(function() {
 	 		
@@ -124,6 +124,10 @@
 	 		$("#intcps").on('keydown', function(e) {if (e.key === " " || e.keyCode === 32) e.preventDefault();});
 	 		
 	 		$("#btn_submit").click(function() {
+	 			
+	 			// 필수 유형 3개부터 필수 체크시 값
+	 			let chk = $("input[name='intcca']:checked").val();	// 유형을 필수로 체크할 때
+	 			let imp = [[${imp}]]; // 데이터베이스에 내장된 유형 = 값 개수
 	 			
 	 			if($("#intctt").val().trim() == "") {
 	 				alert("제목을 입력하세요.");
@@ -141,6 +145,11 @@
 	 				alert("유형을 선택하세요.");
 	 				return false;
 	 			}
+	 			
+	 			if (chk == '필수' && imp >= 3) {
+	 	            alert("필수 유형은 최대 3개까지만 등록 가능합니다.");
+	 	            return false;
+	 	        }
 	 			
 	 			if($("#intcct").val().trim() == "") {
 	 				alert("내용을 입력하세요.");

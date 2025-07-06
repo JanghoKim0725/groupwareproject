@@ -38,14 +38,14 @@
 		}
 		 
 		/*작성하기 버튼 div css*/
-		.div_write1 {
-			margin-top:-40px;
-			margin-left:293px;
+		.div_write1{
+			margin-top:133px;
+			margin-right:870px;
 		}
 		
 		.div_write2 {
-			margin-top:-372px;
-			margin-left:293px;
+			margin-top:-40px;
+			margin-right:870px;
 		}
 		
 		/*작성하기, 부서버튼*/
@@ -196,6 +196,7 @@
 							<tr th:each="result,myState : ${plist}" 
 								th:style="${result.intcca == '필수'} ? 'background-color:#ffffdd;' : '' ">
 								<td align="center">
+									<!-- 필수유형 값 3개까지만 표시 이후는 보통변환및 번호 표시 -->
 									<span th:if="${result.intcca == '필수'}">공지</span>
         							<span th:unless="${result.intcca == '필수'}" 
         								  th:text="${startPageRownum - myState.index}">
@@ -217,6 +218,7 @@
 					<div th:if="${#lists.isEmpty(plist)}" 
 						 style="text-align:center; margin-top:150px; font-weight:bold; font-size:50px;">
 						 검색 결과가 없습니다.
+						 <div class="div_write1"><button type="button" class="button" id="btn_Write">작성하기</button></div>
 					</div>
 				</div>
 				<!-- 페이징 -->
@@ -254,9 +256,7 @@
 							</td>
 						</tr>
 				    </table>
-				</div>
-				<div th:class= "${#lists.isEmpty(plist)} ? 'div_write2' : div_write1">
-					<button type="button" class="button" id="btn_Write">작성하기</button>
+				    <div class="div_write2"><button type="button" class="button" id="btn_Write">작성하기</button></div>
 				</div>
             </section>
         </div>

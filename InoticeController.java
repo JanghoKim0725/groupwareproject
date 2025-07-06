@@ -39,7 +39,7 @@ public class InoticeController {
 		// 한 페이지당 보여줄 공지사항 데이터(항목) 개수
 		int pageData = 10;  
 		
-		// 1page를 원하면 -> 0번세팅, 검색 포함 페이징 처리
+		// 1page를 원하면 -> 0번세팅, 검색,분류 포함 페이징 처리
 	    Page<InoticeDto> page = inoticeService.list(indexpage -1, pageData, search, deptno);
 	    
 		// 화면 출력 시작번호 = (총 데이터개수 -(현재페이지번호 - 1) * 출력단위)
@@ -85,7 +85,7 @@ public class InoticeController {
 		// 한 페이지당 보여줄 공지사항 데이터(항목) 개수
 		int pageData = 10;  
 		
-		// 1page를 원하면 -> 0번세팅, 검색 포함 페이징 처리
+		// 1page를 원하면 -> 0번세팅, 검색,분류 포함 페이징 처리
 	    Page<InoticeDto> page = inoticeService.list(indexpage -1, pageData, search, deptno);
 	    
 		// 화면 출력 시작번호 = (총 데이터개수 -(현재페이지번호 - 1) * 출력단위)
@@ -156,6 +156,12 @@ public class InoticeController {
 		//상세정보 서비스
 		InoticeDto dto = inoticeService.detail(Intcno);
 		
+		// 유형(필수 값) 조회
+		long imp  = inoticeService.countByIntcca();
+		
+		// 수정화면에 유형값이 이미 필수일 경우 imp 카운트 제외
+		if ( dto != null && "필수".equals(dto.getIntcca())) imp -= 1;
+		
 		// admin이 1일경우 상세보기로 이동
 		if(admin == 1) {
 			
@@ -180,6 +186,9 @@ public class InoticeController {
 		// 상세보기,수정하기 서비스 화면에 출력
 		model.addObject("dto",dto);
 		
+		// 유형(필수) 값 출력
+		model.addObject("imp",imp);
+		
 		return model;
 	}
 		
@@ -187,8 +196,15 @@ public class InoticeController {
 	@GetMapping("/AdminWrite")
 	public ModelAndView AdminWrite() {
 			
+		// 유형(필수 값) 조회
+		long imp = inoticeService.countByIntcca();  
+		
+		// 화면 모델 출력
 		ModelAndView model = new ModelAndView();
+		
+		model.addObject("imp",imp);
 		model.setViewName("notice/adminInoticeWrite");
+		
 		return model;
 	}
 		
