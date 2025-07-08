@@ -10,107 +10,102 @@
     </head>
     
     <style>
-    
-	    /*전체화면 css*/ 
-		.content-body {
-		 	width: 100%;
-		 	height:800px; 	
-		 	margin-top:100px;
+    	
+    	/*공지사항 문구 css*/
+    	.tit_h3 {
+    		height:50px; 
+    		line-height:50px; 
+    		font-size:18px; 
+    		margin-bottom:20px;
+    	}
+    	
+    	/*작성하기 테이블 css*/
+		.writetable{
+			margin-top:30px;
+			width:600px;
+			height:450px;
 		}
-		 
-		th {
-		 	font-size:20px;
-		 	font-weight:bold;
-		 	background-color:#f2f2f2;
-		 	border:1px solid black;
-		}
-		 
-		td {
-			background-color:white;
-			border:1px solid black;	
-		}
-		 
-		/*공지사항 div css*/
-		.div_notice {
-			height:10px;
-		 	margin-top:120px;
-		 	text-align:center;
-		 	border:1px;
-		}
-		 
-		/*공지사항 문구 css*/
-		.font_notice {
-		 	font-weight:900;       
-		 	font-size:40px;
-		}
-		 
-		/*작성입력란(제목,암호,작성자)*/
+	    
+	    .writetable th {
+	    	border: 1px solid #d1d1d1;
+	    	background:#e9e9e9; 
+	    	padding:0 20px;
+	    	text-align:center;
+	    	font-size:20px;
+	    	font-weight:bold;
+	    }
+	    
+	    .writetable td {
+	    	border: 1px solid #d1d1d1;
+	    	padding:0 20px;
+	    	font-size:20px;
+	    	font-weight:bold;
+	    }
+	    
+	    /*제목입력란*/
 		.input {
-			margin-left:5px;
-			width:300px;
-			line-height: 1.4;
-			font-size:20px;
-			padding:4px;
-			border:none;
-			outline: none;
-		 }
-		 
-		 /*내용입력란*/
-		 .content {
-			width:380px;
-			height:150px;
-			font-size:20px;
-			font-weight:bold;
-			padding:4px;
-			border:none;
-			outline: none;
-		 }
-		 
-		 /*부서선택란*/
+		 	width:470px;
+		 	font-weight:bold;
+		 	font-size:20px;
+		 	border:none;
+		 	outline:none;
+		}
+	    
+	    /*부서선택란*/
 		 .select {
-		 	width:80px;
-		 	margin-left:15px;
-		 	font-size:15px;
-		 	transform: scale(1.2);
-		 }
-		 
-		 /*유형선택란*/
+		 	width:120px;
+		 	font-weight:bold;
+		 	font-size:20px;
+		 	transform: scale(1);
+		}
+	    
+	    /*유형선택란*/
 		 .radio {
-		 	margin-left:10px;
+		 	margin-left:5px;
 		 	font-size:30px;
 		 	transform: scale(1.5);
 		 }
 		 
-		 /*작성하기 테이블 css*/
-		 .writetable{height:300px;}
-		
-		 /*버튼 div css*/
-		 .div_button {margin-top:-400px;}
-		 
-		 /*버튼*/
-		 .button1 {
-		 	width:120px;
-			height:40px;
-			border-radius:10px;
-			border:1px solid #777;
-			font-size:20px;
+		/*내용입력란*/
+		.content {
+			width:470px;
+			height:300px;
 			font-weight:bold;
-			padding:3px;
-			cursor:pointer;
-			background-color:#777;
-			color:white;
-		 }
-		
-		 .button2 {
-			width:120px;
-			height:40px;
-			border-radius:10px;
 			font-size:20px;
+			border:none;
+		 	outline:none;
+		}
+	    
+	    /*버튼 div css*/
+		.div_button {margin-top:30px;}
+		
+		/*버튼 css*/
+		button {
+			border-radius: 5px !important; 
+			font-size: 1.5rem; 
+			transition:.2s; 
+			cursor:pointer !important;
+		}
+		
+		.button1 {
+			padding:8px 20px; 
+			border:1px solid #777; 
+			color: white; 
+			background:#999; 
 			font-weight:bold;
-			padding:3px;
-			cursor:pointer;
-			background-color:white;
-		 }
+		}
+		
+		.button1:hover {background: #777;}
+		
+		.button2 {
+			padding:8px 20px; 
+			border:1px solid #777; 
+			color: #777; 
+			background:white; 
+			font-weight: bold;
+		}
+		
+		.button2:hover {background: #e5e5e5;}
     
     </style>
     
@@ -119,9 +114,6 @@
     	$(function() {
 	 		
 	 		$("#btn_List"  ).click(function() {location = "/Inotice/AdminList";});
-	 		
-	 		// 암호입력 스페이스 입력 막기
-	 		$("#intcps").on('keydown', function(e) {if (e.key === " " || e.keyCode === 32) e.preventDefault();});
 	 		
 	 		$("#btn_submit").click(function() {
 	 			
@@ -191,12 +183,12 @@
             <!-- nav 종료 -->
 
             <section class="contents">
-                <div class="div_notice"><font class="font_notice">전체공지사항</font></div>
 				<form id="frm" enctype="multipart/form-data">
-					<div class="content-body" align="center">
+					<div align="center">
+						<h3 class="tit_h3">전체공지사항</h3>
 						<table class="writetable">
 							<colgroup>
-								<col width="20%"/>
+								<col width="15%"/>
 								<col width="*"  />
 							</colgroup>
 							<tr>
@@ -218,10 +210,9 @@
 							<tr>
 								<th>유형</th>
 								<td>
-									<input type="radio" class="radio" id="intcca" name="intcca" value="필수">
-									&nbsp;<font size="4">필수</font>
-									<input type="radio" class="radio" id="intcca" name="intcca" value="일반">
-									&nbsp;<font size="4">일반</font>
+									<input type="radio" class="radio" id="intcca" name="intcca" value="필수">&nbsp;필수
+									&nbsp;&nbsp;&nbsp;
+									<input type="radio" class="radio" id="intcca" name="intcca" value="일반">&nbsp;일반
 								</td>
 							</tr>
 							<tr>
