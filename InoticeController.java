@@ -117,28 +117,38 @@ public class InoticeController {
 	}
 	
 	// 사용자 전체공지사항 상세보기화면 출력
-	@GetMapping("/{Intcno}")
-	public ModelAndView userDetail(@PathVariable int Intcno) {
+	@GetMapping("User/{user}/{Intcno}")
+	public ModelAndView userDetail(@PathVariable int user, @PathVariable int Intcno) {
 		
 		// 모델 설정
 		ModelAndView model = new ModelAndView();
 		
 		//상세정보 서비스
 		InoticeDto dto = inoticeService.detail(Intcno);
+		
+		// user가 1일경우 상세보기로 이동
+		if(user == 1) {
+		
+			// 상세보기 내용 줄바꿈,공백처리,특수문자처리 
+			String cont = dto.getIntcct();
+			cont.replace(" ", "&nbsp;");
+			cont.replace(">", "&gt");
+			cont.replace("<", "&lt");
+			cont.replace("\n","<br>");
+			dto.setIntcct(cont);
 			
-		//조회수 증가 (관리자용은 증가X 증가는 오직 사용자만)
-		inoticeService.saveHits(Intcno);
+			//조회수 증가 (관리자용은 증가X 증가는 오직 사용자만)
+			inoticeService.saveHits(Intcno);
+			
+			// 상세보기 링크설정
+			model.setViewName("notice/userInoticeDetail");
+		}
 		
-		// 상세보기 내용 줄바꿈,공백처리,특수문자처리 
-		String cont = dto.getIntcct();
-		cont.replace(" ", "&nbsp;");
-		cont.replace(">", "&gt");
-		cont.replace("<", "&lt");
-		cont.replace("\n","<br>");
-		dto.setIntcct(cont);
-		
-		// 상세보기 링크설정
-		model.setViewName("notice/userInoticeDetail");
+		// user가 2일경우 메일작성으로 이동
+		else if(user == 2) {
+			// 메일작성 링크설정
+			model.setViewName("notice/userInoticeMailWrite");
+		}
 		
 		// 상세보기 화면에 출력
 		model.addObject("dto",dto);
@@ -147,7 +157,7 @@ public class InoticeController {
 	}
 	
 	// 관리자 전체공지사항 상세보기화면,수정하기화면 출력
-	@GetMapping("/{admin}/{Intcno}")
+	@GetMapping("Admin/{admin}/{Intcno}")
 	public ModelAndView adminDetail(@PathVariable int admin, @PathVariable int Intcno) {
 		
 		// 모델 설정
@@ -177,8 +187,14 @@ public class InoticeController {
 			model.setViewName("notice/adminInoticeDetail");
 		}
 		
-		// admin이 2일경우 수정하기로 이동
+		// admin이 2일경우 메일작성으로 이동
 		else if(admin == 2) {
+			// 메일작성 링크설정
+			model.setViewName("notice/adminInoticeMailWrite");
+		}
+		
+		// adimn이 3일경우 수정하기로 이동
+		else if(admin == 3) {
 			// 수정하기 링크설정
 			model.setViewName("notice/adminInoticeModify");
 		}
@@ -212,9 +228,9 @@ public class InoticeController {
 	@PostMapping
 	public String notice(InoticeDto dto1) throws Exception {	
 		
-		String 	  msg = "ok";
+		String 	  	msg = "ok";
 		InoticeDto dto2 = inoticeService.notice(dto1);
 		if(dto2 == null) msg = "fail";  
-		return 	  msg;
+		return msg;
 	}	
 }

@@ -43,40 +43,43 @@
     
     <script>
     
-    $(function() {
+    	$(function() {
     	
-    	$("#btn_Mail").click(function() {location = "/mailwrite";});
+	    	$("#btn_List"  ).click(function() {location = "/Inotice/AdminList";});
+	    	
+	    	$("#btn_Mail"  ).click(function() {
+	 			let Intcno = $("#intcno").val();
+	 			location   = "/Inotice/Admin/2/" + Intcno;
+	 		});
+	    	
+	    	$("#btn_Modify").click(function() {
+	 			let Intcno = $("#intcno").val();
+	 			location   = "/Inotice/Admin/3/" + Intcno;
+	 		});
+	    	
+			$("#btn_Delete").click(function() {
+	 			
+	 			if(!confirm("정말 삭제하시겠습니까?")) return false;
+	 			
+	 			event.preventDefault();  
+	 			let Intcno = $("#intcno").val();
+	 			$.ajax({
+	 				type	 : "post",	
+	 				url		 : "/Inotice", 
+	 				data     : "intcno=" + Intcno + "&intctt=",  
+	 				dataType : "text", 
+	 				success  : function(data) { 
+	 					if(data == "ok") { 		
+	 						alert("삭제완료!");
+	 						location = "/Inotice/AdminList";
+	 					}
+	 					else 			   alert("삭제실패!");
+	 				},
+	 				error	 : function() {alert("전송실패!");}
+	 			});
+	 		});
     	
-    	$("#btn_List").click(function() {location = "/Inotice/AdminList";});
-    	
-    	$("#btn_Modify").click(function() {
- 			let Intcno = $("#intcno").val();
- 			location  = "/Inotice/2/" + Intcno;
- 		});
-    	
-		$("#btn_Delete").click(function() {
- 			
- 			if(!confirm("정말 삭제하시겠습니까?")) return false;
- 			
- 			event.preventDefault();  
- 			let Intcno = $("#intcno").val();
- 			$.ajax({
- 				type	 : "post",	
- 				url		 : "/Inotice", 
- 				data     : "intcno=" + Intcno + "&intctt=",  
- 				dataType : "text", 
- 				success  : function(data) { 
- 					if(data == "ok") { 		
- 						alert("삭제완료!");
- 						location = "/Inotice/AdminList";
- 					}
- 					else 			   alert("삭제실패!");
- 				},
- 				error	 : function() {alert("전송실패!");}
- 			});
- 		});
-    	
-    });
+    	});
     
     </script>
 

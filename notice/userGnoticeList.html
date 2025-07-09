@@ -74,7 +74,7 @@
 							<tr th:each="result,myState : ${plist}">
 								<td align="center"  th:text="${startPageRownum - myState.index}"></td>
 								<td align="center">
-									<a th:href="@{|/Gnotice/${result.gntcno}|}" th:text="${result.gntctt}" 
+									<a th:href="@{|/Gnotice/User/1/${result.gntcno}|}" th:text="${result.gntctt}" 
 									   th:style="${'color:blue;'}">
 									</a>
 								</td>

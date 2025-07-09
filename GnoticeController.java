@@ -117,28 +117,38 @@ public class GnoticeController {
 	}
 	
 	// 사용자 일반공지사항 상세보기화면 출력
-	@GetMapping("/{Gntcno}")
-	public ModelAndView userDetail(@PathVariable int Gntcno) {
+	@GetMapping("User/{user}/{Gntcno}")
+	public ModelAndView userDetail(@PathVariable int user, @PathVariable int Gntcno) {
 		
 		// 모델 설정
 		ModelAndView model = new ModelAndView();
 		
 		//상세정보 서비스
 		GnoticeDto dto = gnoticeService.detail(Gntcno);
+		
+		// user가 1일경우 상세보기로 이동
+		if(user == 1) {
+		
+			// 상세보기 내용 줄바꿈,공백처리,특수문자처리 
+			String cont = dto.getGntcct();
+			cont.replace(" ", "&nbsp;");
+			cont.replace(">", "&gt");
+			cont.replace("<", "&lt");
+			cont.replace("\n","<br>");
+			dto.setGntcct(cont);
 			
-		//조회수 증가 (관리자용은 증가X 증가는 오직 사용자만)
-		gnoticeService.saveHits(Gntcno);
+			//조회수 증가 (관리자용은 증가X 증가는 오직 사용자만)
+			gnoticeService.saveHits(Gntcno);
+			
+			// 상세보기 링크설정
+			model.setViewName("notice/userGnoticeDetail");
+		}
 		
-		// 상세보기 내용 줄바꿈,공백처리,특수문자처리 
-		String cont = dto.getGntcct();
-		cont.replace(" ", "&nbsp;");
-		cont.replace(">", "&gt");
-		cont.replace("<", "&lt");
-		cont.replace("\n","<br>");
-		dto.setGntcct(cont);
-		
-		// 상세보기 링크설정
-		model.setViewName("notice/userGnoticeDetail");
+		// user가 2일경우 메일작성으로 이동
+		else if(user == 2) {
+			// 메일작성 링크설정
+			model.setViewName("notice/userGnoticeMailWrite");
+		}
 		
 		// 상세보기 화면에 출력
 		model.addObject("dto",dto);
@@ -147,7 +157,7 @@ public class GnoticeController {
 	}
 	
 	// 관리자 일반공지사항 상세보기화면,수정하기화면 출력
-	@GetMapping("/{admin}/{Gntcno}")
+	@GetMapping("Admin/{admin}/{Gntcno}")
 	public ModelAndView adminDetail(@PathVariable int admin, @PathVariable int Gntcno) {
 		
 		// 모델 설정
@@ -171,8 +181,14 @@ public class GnoticeController {
 			model.setViewName("notice/adminGnoticeDetail");
 		}
 		
-		// admin이 2일경우 수정하기로 이동
+		// admin이 2일경우 메일작성으로 이동
 		else if(admin == 2) {
+			// 메일작성 링크설정
+			model.setViewName("notice/adminGnoticeMailWrite");
+		}
+		
+		// adimn이 3일경우 수정하기로 이동
+		else if(admin == 3) {
 			// 수정하기 링크설정
 			model.setViewName("notice/adminGnoticeModify");
 		}
@@ -196,9 +212,9 @@ public class GnoticeController {
 	@PostMapping
 	public String notice(GnoticeDto dto1) throws Exception {	
 		
-		String 	  msg = "ok";
+		String 	  	msg = "ok";
 		GnoticeDto dto2 = gnoticeService.notice(dto1);
 		if(dto2 == null) msg = "fail";  
-		return 	  msg;
+		return msg;
 	}	
 }

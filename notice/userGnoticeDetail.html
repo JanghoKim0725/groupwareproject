@@ -41,7 +41,20 @@
     
     </style>
     
-    <script>$(function() {$("#btn_List").click(function() {location = "/Gnotice/UserList";});});</script>
+    <script>
+    	
+	    $(function() {
+	    	
+	    	$("#btn_List").click(function() {location = "/Gnotice/UserList";});
+	    	
+	    	$("#btn_Mail").click(function() {
+	 			let Gntcno = $("#gntcno").val();
+	 			location   = "/Gnotice/User/2/" + Gntcno;
+	 		});
+	    	
+		});
+    
+    </script>
 
     <body>
         <!-- header 시작 -->
@@ -56,6 +69,7 @@
 
             <section class="contents">
 				<div align="center">
+					<input type="hidden" id="gntcno" th:value="${dto.gntcno}">
 					<h3 class="tit_h3">일반공지사항</h3>
 					<table class="detailtable">
 						<colgroup>

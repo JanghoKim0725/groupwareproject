@@ -43,38 +43,43 @@
     
     <script>
     
-    $(function() {
-    	
-    	$("#btn_List").click(function() {location = "/Gnotice/AdminList";});
-    	
-    	$("#btn_Modify").click(function() {
- 			let Gntcno = $("#gntcno").val();
- 			location  = "/Gnotice/2/" + Gntcno;
- 		});
-    	
-		$("#btn_Delete").click(function() {
- 			
- 			if(!confirm("정말 삭제하시겠습니까?")) return false;
- 			
- 			event.preventDefault();  
- 			let Gntcno = $("#gntcno").val();
- 			$.ajax({
- 				type	 : "post",	
- 				url		 : "/Gnotice", 
- 				data     : "gntcno=" + Gntcno + "&gntctt=",  
- 				dataType : "text", 
- 				success  : function(data) { 
- 					if(data == "ok") { 		
- 						alert("삭제완료!");
- 						location = "/Gnotice/AdminList";
- 					}
- 					else 			   alert("삭제실패!");
- 				},
- 				error	 : function() {alert("전송실패!");}
- 			});
- 		});
-    	
-    });
+	    $(function() {
+	    	
+	    	$("#btn_List"  ).click(function() {location = "/Gnotice/AdminList";});
+	    	
+	    	$("#btn_Mail"  ).click(function() {
+	 			let Intcno = $("#gntcno").val();
+	 			location   = "/Gnotice/Admin/2/" + Intcno;
+	 		});
+	    	
+	    	$("#btn_Modify").click(function() {
+	 			let Gntcno = $("#gntcno").val();
+	 			location   = "/Gnotice/Admin/3/" + Gntcno;
+	 		});
+	    	
+			$("#btn_Delete").click(function() {
+	 			
+	 			if(!confirm("정말 삭제하시겠습니까?")) return false;
+	 			
+	 			event.preventDefault();  
+	 			let Gntcno = $("#gntcno").val();
+	 			$.ajax({
+	 				type	 : "post",	
+	 				url		 : "/Gnotice", 
+	 				data     : "gntcno=" + Gntcno + "&gntctt=",  
+	 				dataType : "text", 
+	 				success  : function(data) { 
+	 					if(data == "ok") { 		
+	 						alert("삭제완료!");
+	 						location = "/Gnotice/AdminList";
+	 					}
+	 					else 			   alert("삭제실패!");
+	 				},
+	 				error	 : function() {alert("전송실패!");}
+	 			});
+	 		});
+	    	
+	    });
     
     </script>
 
