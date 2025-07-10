@@ -10,6 +10,10 @@
     
     <style>
   
+  		/*필수공지 색처리*/
+  		.important 		 {background-color:#ffffdd;}
+  		.important:hover {background-color:#ffff91 !important;}
+ 
 	    /*현재 페이지 색처리*/
 	    .current-page {color:blue;}
 	    
@@ -74,8 +78,7 @@
 							</tr>
 						</thead>
 						<tbody style="background-color:white;">
-							<tr th:each="result,myState : ${plist}" 
-								th:style="${result.intcca == '필수'} ? 'background-color:#ffffdd;' : '' ">
+							<tr th:each="result,myState : ${plist}" th:class="${result.intcca == '필수'} ? 'important' : '' ">
 								<td align="center">
 									<!-- 필수유형 값 3개까지만 표시 이후는 보통변환및 번호 표시 -->
 									<span th:if="${result.intcca == '필수'}">공지</span>
