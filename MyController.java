@@ -44,13 +44,16 @@ public class MyController {
 	@GetMapping("/test7")
 	public String test7() {return "test7";}
 	
+	@GetMapping("login")
+	public String login() {return "login";}
+	
 	@GetMapping("/test8")
 	public ModelAndView test8(@RequestParam(defaultValue = "1") int indexpage, 
 		 	 				  @RequestParam(defaultValue =  "") String search,
 		 	 				  @RequestParam(defaultValue =  "") String deptno) {
 		
 		// 화면 모델 출력
-		ModelAndView  model = new ModelAndView();
+		ModelAndView model = new ModelAndView();
 				
 		// 총 데이터베이스(전체공지사항 항목) 개수
 		Long total = inoticeService.count();
