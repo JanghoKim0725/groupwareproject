@@ -1,14 +1,16 @@
 package com.jpaproject.controller;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 import com.jpaproject.entity.EmpDto;
 import com.jpaproject.entity.LoginService;
 import jakarta.servlet.http.HttpSession;
 
-@RestController
+@Controller
 @RequestMapping("login")
 public class LoginController {
 
@@ -22,7 +24,10 @@ public class LoginController {
 	
 	// 로그인 처리
 	@PostMapping
+	@ResponseBody
 	public String login(@RequestParam String userid,@RequestParam String pass,HttpSession session) {
+		
+		String msg = "";
 		
 		// 사용자조회
 		EmpDto user = loginService.login(userid,pass);
@@ -32,12 +37,18 @@ public class LoginController {
 			
 			// 회원출력
 			session.setAttribute("user",user);
-
+			
 			// 환영문구
 			session.setAttribute("welcome",user.getName() + " " + user.getPosition() + "님 환영합니다!");
-			return "redirect:test8";
+			
+			return "ok";
 		}
 		
-		return "로그인 실패 아이디 또는 비밀번호를 확인하세요";
+		// 로그인 실패할 시
+		else return "fail";
 	}
+	
+	// 로그아웃 처리
+	@GetMapping("logout")
+	public void logout(HttpSession session) {session.invalidate();}
 }
