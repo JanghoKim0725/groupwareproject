@@ -10,7 +10,7 @@
 	            fetch("/login/logout")
 	                .then(() => {
 	                    alert("로그아웃 되었습니다.");
-	                    location.href = "/test8";
+	                    location.href = "/index";
 	                });
 	       }
 	    }
@@ -24,14 +24,14 @@
     <div th:if="${session.user != null}" style="margin-left:300px;">
     	<font size="5">
     		<span th:text="${session.user.name}"></span> 
-    		<span th:text="${session.user.position}"></span> 님 환영합니다!
+    		<span th:text="${session.user.position}"></span> 님 환영합니다!  
     	</font>
     </div>
     <div class="header_cate">
         <ul class="category_list flex_end">
             <li>
                 <!-- 로그아웃 상태일 때 -->
-  				<button type="button" class="button1" th:if="${session.user == null}" onclick="location.href='/login'">
+  				<button type="button" class="button1" th:if="${session.user == null}" onclick="location.href='/login/login'">
   					login
   				</button>
   				<!-- 로그인 상태일 때 -->

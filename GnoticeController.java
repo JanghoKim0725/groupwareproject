@@ -27,8 +27,8 @@ public class GnoticeController {
 	// 사용자 일반공지사항 목록화면 출력
 	@GetMapping("/UserList")
 	public ModelAndView userList(@RequestParam(defaultValue = "1") int indexpage, 
-							 	 @RequestParam(defaultValue = "") String search,
-							 	 @RequestParam(defaultValue =  "")String deptno) {
+							 	 @RequestParam(defaultValue =  "") String search,
+							 	 @RequestParam(defaultValue =  "") String deptno) {
 		
 		// 화면 모델 출력
 		ModelAndView  model = new ModelAndView();
@@ -73,8 +73,8 @@ public class GnoticeController {
 	// 관리자 일반공지사항 목록화면 출력
 	@GetMapping("/AdminList")
 	public ModelAndView adminList(@RequestParam(defaultValue = "1") int indexpage, 
-							 	  @RequestParam(defaultValue = "") String search,
-							 	  @RequestParam(defaultValue =  "")String deptno) {
+							 	  @RequestParam(defaultValue =  "") String search,
+							 	  @RequestParam(defaultValue =  "") String deptno) {
 			
 		// 화면 모델 출력
 		ModelAndView  model = new ModelAndView();

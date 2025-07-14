@@ -6,8 +6,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import com.jpaproject.entity.EmpDto;
-import com.jpaproject.entity.LoginService;
+import com.jpaproject.service.LoginService;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -22,6 +23,16 @@ public class LoginController {
 		this.loginService = loginService;
 	}
 	
+	// 로그인화면 출력
+	@GetMapping("/login")
+	public ModelAndView login() {
+		
+		// 화면 모델 출력
+		ModelAndView model = new ModelAndView();
+		model.setViewName("login/login");
+		return model;
+	}
+	
 	// 로그인 처리
 	@PostMapping
 	@ResponseBody
@@ -30,16 +41,19 @@ public class LoginController {
 		String msg = "";
 		
 		// 사용자조회
-		EmpDto user = loginService.login(userid,pass);
+		EmpDto user  = loginService.login(userid,pass);
 		
 		// 로그인 성공 -> 세션 저장
-		if(user != null) {
+		if(user != null) {	
+			
+			// 부서명으로 code테이블 ucode에 조회
+			String ucode = loginService.getDeptCode(user.getDept());
 			
 			// 회원출력
 			session.setAttribute("user",user);
 			
-			// 환영문구
-			session.setAttribute("welcome",user.getName() + " " + user.getPosition() + "님 환영합니다!");
+			// 회원 해당부서 코드출력
+			session.setAttribute("ucode",ucode);
 			
 			return "ok";
 		}

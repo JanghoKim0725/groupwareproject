@@ -22,8 +22,7 @@ public class InoticeController {
 	public InoticeController(InoticeService inoticeService) {
 		this.inoticeService = inoticeService;
 	}
-	
-	
+
 	// 사용자 전체공지사항 목록화면 출력
 	@GetMapping("/UserList")
 	public ModelAndView userList(@RequestParam(defaultValue = "1") int indexpage, 
