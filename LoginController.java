@@ -38,10 +38,8 @@ public class LoginController {
 	@ResponseBody
 	public String login(@RequestParam String userid,@RequestParam String pass,HttpSession session) {
 		
-		String msg = "";
-		
 		// 사용자조회
-		EmpDto user  = loginService.login(userid,pass);
+		EmpDto user = loginService.login(userid,pass);
 		
 		// 로그인 성공 -> 세션 저장
 		if(user != null) {	
@@ -49,11 +47,12 @@ public class LoginController {
 			// 부서명으로 code테이블 ucode에 조회
 			String ucode = loginService.getDeptCode(user.getDept());
 			
-			// 회원출력
-			session.setAttribute("user",user);
-			
-			// 회원 해당부서 코드출력
-			session.setAttribute("ucode",ucode);
+			// 로그인된 사용자정보불러오기
+			session.setAttribute("empno",user.getEmpno());		  // 해당 사용자 사원번호 불러오기
+			session.setAttribute("userid",user.getUserid()); 	  // 해당 사용자 아이디 불러오기
+			session.setAttribute("name",user.getName());      	  // 해당 사용자 이름 불러오기	
+			session.setAttribute("dept",ucode);					  // 해당 사용자 부서 불러오기
+			session.setAttribute("position",user.getPosition());  // 해당 사용자 직급 불러오기
 			
 			return "ok";
 		}

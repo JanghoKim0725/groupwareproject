@@ -91,9 +91,7 @@
 					<table th:if="${!#lists.isEmpty(plist)}" th:class="paging">
 						<tr>
 							<!-- 맨 앞으로 (indexpage=1) -->
-							<td>
-								<a th:href="@{|/Gnotice/AdminList?indexpage=1&search=${search}|}">&lt;&lt;</a>
-							</td>
+							<td><a th:href="@{|/Gnotice/AdminList?indexpage=1&search=${search}|}">&lt;&lt;</a></td>
 							<!-- 이전 페이지 (indexpage=current-1, 단 1보다 작으면 1) -->
 							<td class="td_page1">
 								<a th:href=
