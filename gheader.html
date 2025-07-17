@@ -23,7 +23,12 @@
     <div th:if="${session.userid != null}" style="margin-left:300px;">
     	<font size="5">
     		<span th:text="${session.name}"></span> 
-    		<span th:text="${session.position}"></span> 님 환영합니다!  
+    		<span th:switch="${session.position}">
+    			<span th:case="'A10001'">팀장</span>
+    			<span th:case="'A10002'">과장</span>
+    			<span th:case="'A10003'">대리</span>
+    			<span th:case="'A10004'">사원</span>
+    		</span> 님 환영합니다!  
     	</font>
     </div>
     <div class="header_cate">

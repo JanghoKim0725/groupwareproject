@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import com.jpaproject.entity.InoticeDto;
+import com.jpaproject.entity.MailDto;
 import com.jpaproject.service.InoticeService;
 
 @RestController
@@ -145,8 +146,27 @@ public class InoticeController {
 		
 		// user가 2일경우 메일작성으로 이동
 		else if(user == 2) {
-			// 메일작성 링크설정
-			model.setViewName("notice/userInoticeMailWrite");
+			
+			// 실제 배포용 (세션 로그인 체크)
+	        // MemberDto loginMember = (MemberDto) session.getAttribute("loginMember");
+	        // if (loginMember == null) {
+	        //     return new ModelAndView("redirect:/login");
+	        // }
+	        // String userId = loginMember.getUserid();
+
+	        String userId = "test1"; // 테스트용 하드코딩
+
+	        MailDto draft = new MailDto();
+	        draft.setSenderId(userId); // 혹시 몰라 미리 세팅
+	        
+	        // 메일작성 링크설정 
+	        ModelAndView mv = new ModelAndView("notice/userInoticeMailWrite");
+	        
+	        mv.addObject("dto",dto); // 메일내용에 들어갈 공지사항내용 출력
+	        mv.addObject("draft", draft);
+	        mv.addObject("replyMode", false); 
+	        
+	        return mv;
 		}
 		
 		// 상세보기 화면에 출력
@@ -188,10 +208,29 @@ public class InoticeController {
 		
 		// admin이 2일경우 메일작성으로 이동
 		else if(admin == 2) {
-			// 메일작성 링크설정
-			model.setViewName("notice/adminInoticeMailWrite");
+			
+			// 실제 배포용 (세션 로그인 체크)
+	        // MemberDto loginMember = (MemberDto) session.getAttribute("loginMember");
+	        // if (loginMember == null) {
+	        //     return new ModelAndView("redirect:/login");
+	        // }
+	        // String userId = loginMember.getUserid();
+
+	        String userId = "test1"; // 테스트용 하드코딩
+
+	        MailDto draft = new MailDto();
+	        draft.setSenderId(userId); // 혹시 몰라 미리 세팅
+	        
+	        // 메일작성 링크설정 
+	        ModelAndView mv = new ModelAndView("notice/adminInoticeMailWrite");
+	        
+	        mv.addObject("dto",dto); // 메일내용에 들어갈 공지사항내용 출력
+	        mv.addObject("draft", draft);
+	        mv.addObject("replyMode", false); 
+	        
+	        return mv;
 		}
-		
+
 		// adimn이 3일경우 수정하기로 이동
 		else if(admin == 3) {
 			// 수정하기 링크설정
