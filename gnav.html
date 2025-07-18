@@ -7,8 +7,8 @@
                     <span class="arr_btm"></span>
                 </a>
                 <ul class="sub">
-                    <li><a href="/Inotice/UserList">전체공지</a></li>
-                    <li><a href="/Gnotice/UserList">일반공지</a></li>
+                <li><a href="/Inotice/UserList">전체공지</a></li>
+				<li><a href="/Gnotice/UserList">일반공지</a></li>
                 </ul>
             </li>
             <li>
@@ -17,10 +17,10 @@
                     <span class="arr_btm"></span>
                 </a>
                 <ul class="sub">
-                    <li><a href="#">기안</a></li>
-                    <li><a href="#">임시보관함</a></li>
-                    <li><a href="#">결재진행중</a></li>
-                    <li><a href="#">결재목록</a></li>
+                    <li><a th:href="@{/edsm/edsmWrite}">기안</a></li>
+                    <li><a th:href="@{/edsm/edsmDraft}">임시보관함</a></li>
+                    <li><a th:href="@{/edsm?status=F60002}">결재진행중</a></li>
+                    <li><a th:href="@{/edsm}">결재목록</a></li>
                 </ul>
             </li>
             <li>
@@ -28,7 +28,7 @@
                     <span>일정관리</span>
                     <span class="arr_btm"></span></a>
                 <ul class="sub">
-                    <li><a href="#">내 스케줄</a></li>
+                    <li><a href="/schedule/list">내 스케줄</a></li>
                     <li><a href="#">내 근태확인</a></li>
                     <li><a href="#">부서일정</a></li>
                     <li><a href="#">회의일정</a></li>                    
@@ -51,12 +51,13 @@
                     <span class="arr_btm"></span>
                 </a>
                 <ul class="sub">
-                    <li><a href="/mail/mailwrite">메일 작성</a></li>
-                    <li><a href="/mail/mailout">보낸메일</a></li>
-                    <li><a href="/mail/mailin">받은메일</a></li>
-                    <li><a href="/mail">전체메일함</a></li>
-                    <li><a href="/mail/maildrafts">임시보관함</a></li>
-                    <li><a href="/mail/mailtome">내게쓴메일함</a></li>
+                    <li><a href="/mail">전체 메일함</a></li>
+                    <li><a href="/mail/mailin">수신 메일함</a></li>
+                    <li><a href="/mail/mailout">발신 메일함</a></li>
+                    <li><a href="/mail/mailtome">내게 쓴 메일함</a></li>
+                    <li><a href="/mail/maildrafts">임시보관 메일함</a></li>
+                    <li><a href="/mail/mailblock">차단 메일함</a></li>
+                    <li><a href="/mail/mailtrash">삭제 메일함</a></li>
                 </ul>
             </li>
             <li>
@@ -65,11 +66,10 @@
                     <span class="arr_btm"></span>
                 </a>
                 <ul class="sub">
-                    <li><a href="#">사원관리</a></li>
-                    <li><a href="#">조직도관리</a></li>
+                    <li><a th:href="@{/emp/empList}">사원관리</a></li>
+					<li><a href="/Inotice/AdminList">전체공지사항관리</a></li>
+					<li><a href="/Gnotice/AdminList">일반공지사항관리</a></li>
                     <li><a href="#">근태관리</a></li>
-                    <li><a href="/Inotice/AdminList">전체공지사항관리</a></li>
-                    <li><a href="/Gnotice/AdminList">일반공지사항관리</a></li>
                 </ul>
             </li>
         </ul>

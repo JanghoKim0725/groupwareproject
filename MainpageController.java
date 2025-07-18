@@ -46,7 +46,7 @@ public class MainpageController {
 		model.addObject("plist",page.getContent());
 		model.addObject("startPageRownum",startPageRownum);
 		model.addObject("ptotal",page.getTotalElements());
-		model.setViewName("mainpage/index");
+		model.setViewName("/index/index");
 		
 		return model;
 	}

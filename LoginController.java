@@ -22,7 +22,7 @@ public class LoginController {
 	public LoginController(LoginService loginService) {
 		this.loginService = loginService;
 	}
-	
+
 	// 로그인화면 출력
 	@GetMapping("/login")
 	public ModelAndView login() {
@@ -56,12 +56,16 @@ public class LoginController {
 		    session.setAttribute("name",    user.getName());      // 해당 사용자 이름 불러오기
 		    session.setAttribute("dept",    user.getDept());      // 해당 사용자 부서 불러오기
 		    session.setAttribute("position",user.getPosition());  // 해당 사용자 직급 불러오기
+		    session.setAttribute("email",	user.getEmail());		  // 해당 사용자 이메일 불러오기
 	    }
 	    
 	    return "1"; 
 	}
 	
 	// 로그아웃 처리
-	@GetMapping("logout")
-	public void logout(HttpSession session) {session.invalidate();}
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/login/login";
+	}
 }

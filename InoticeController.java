@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.jpaproject.entity.InoticeDto;
 import com.jpaproject.entity.MailDto;
 import com.jpaproject.service.InoticeService;
+import jakarta.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/Inotice")
@@ -118,7 +119,7 @@ public class InoticeController {
 	
 	// 사용자 전체공지사항 상세보기화면 출력
 	@GetMapping("User/{user}/{Intcno}")
-	public ModelAndView userDetail(@PathVariable int user, @PathVariable int Intcno) {
+	public ModelAndView userDetail(@PathVariable int user, @PathVariable int Intcno,HttpSession session) {
 		
 		// 모델 설정
 		ModelAndView model = new ModelAndView();
@@ -147,24 +148,21 @@ public class InoticeController {
 		// user가 2일경우 메일작성으로 이동
 		else if(user == 2) {
 			
-			// 실제 배포용 (세션 로그인 체크)
-	        // MemberDto loginMember = (MemberDto) session.getAttribute("loginMember");
-	        // if (loginMember == null) {
-	        //     return new ModelAndView("redirect:/login");
-	        // }
-	        // String userId = loginMember.getUserid();
-
-	        String userId = "test1"; // 테스트용 하드코딩
-
+			String   name = (String) session.getAttribute("name");
+	        String userId = (String) session.getAttribute("userid");
+	        if (userId == null) {
+	            return new ModelAndView("redirect:login/login");
+	        }
+	        
 	        MailDto draft = new MailDto();
 	        draft.setSenderId(userId); // 혹시 몰라 미리 세팅
 	        
-	        // 메일작성 링크설정 
+	        // 메일작성 링크설정
 	        ModelAndView mv = new ModelAndView("notice/userInoticeMailWrite");
 	        
-	        mv.addObject("dto",dto); // 메일내용에 들어갈 공지사항내용 출력
 	        mv.addObject("draft", draft);
 	        mv.addObject("replyMode", false); 
+	        mv.addObject("dto",dto); // 메일내용에 들어갈 공지사항내용 출력하기 위해
 	        
 	        return mv;
 		}
@@ -177,7 +175,7 @@ public class InoticeController {
 	
 	// 관리자 전체공지사항 상세보기화면,수정하기화면 출력
 	@GetMapping("Admin/{admin}/{Intcno}")
-	public ModelAndView adminDetail(@PathVariable int admin, @PathVariable int Intcno) {
+	public ModelAndView adminDetail(@PathVariable int admin, @PathVariable int Intcno,HttpSession session) {
 		
 		// 모델 설정
 		ModelAndView model = new ModelAndView();
@@ -209,24 +207,21 @@ public class InoticeController {
 		// admin이 2일경우 메일작성으로 이동
 		else if(admin == 2) {
 			
-			// 실제 배포용 (세션 로그인 체크)
-	        // MemberDto loginMember = (MemberDto) session.getAttribute("loginMember");
-	        // if (loginMember == null) {
-	        //     return new ModelAndView("redirect:/login");
-	        // }
-	        // String userId = loginMember.getUserid();
-
-	        String userId = "test1"; // 테스트용 하드코딩
-
+			String   name = (String) session.getAttribute("name");
+	        String userId = (String) session.getAttribute("userid");
+	        if (userId == null) {
+	            return new ModelAndView("redirect:login/login");
+	        }
+	        
 	        MailDto draft = new MailDto();
 	        draft.setSenderId(userId); // 혹시 몰라 미리 세팅
 	        
-	        // 메일작성 링크설정 
+	        // 메일작성 링크설정
 	        ModelAndView mv = new ModelAndView("notice/adminInoticeMailWrite");
 	        
-	        mv.addObject("dto",dto); // 메일내용에 들어갈 공지사항내용 출력
 	        mv.addObject("draft", draft);
 	        mv.addObject("replyMode", false); 
+	        mv.addObject("dto",dto); // 메일내용에 들어갈 공지사항내용 출력하기 위해
 	        
 	        return mv;
 		}
