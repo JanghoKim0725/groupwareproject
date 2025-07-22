@@ -184,10 +184,10 @@ public class InoticeController {
 		InoticeDto dto = inoticeService.detail(Intcno);
 		
 		// 유형(필수 값) 조회
-		long imp  = inoticeService.countByIntcca();
+		long imp = inoticeService.countByIntcca();
 		
 		// 수정화면에 유형값이 이미 필수일 경우 imp 카운트 제외
-		if ( dto != null && "필수".equals(dto.getIntcca())) imp -= 1;
+		if (dto != null && "필수".equals(dto.getIntcca())) imp -= 1;
 		
 		// admin이 1일경우 상세보기로 이동
 		if(admin == 1) {
